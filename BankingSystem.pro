@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,14 +20,28 @@ SOURCES += \
     authorization_controller.cpp \
     authorization_model.cpp \
     authorization_view.cpp \
+    bank.cpp \
+    bankSystem.cpp \
+    client.cpp \
+    database.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    user.cpp
 
 HEADERS += \
+    IBank.h \
+    IBankSystem.h \
+    IClient.h \
     authorization_controller.h \
     authorization_model.h \
     authorization_view.h \
-    mainwindow.h
+    bank.h \
+    bankSystem.h \
+    client.h \
+    config.h \
+    database.h \
+    mainwindow.h \
+    user.h
 
 FORMS += \
     mainwindow.ui
