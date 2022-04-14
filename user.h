@@ -1,20 +1,11 @@
 #pragma once
 
 #include "IBank.h"
+#include "userType.h"
 
 #include <cstdint>
 #include <QString>
 
-
-enum UserType
-{
-    CLIENT,
-    ENTERPRISE_SPECIALIST,
-    OPERATOR,
-    MANAGER,
-    ADMINISTRATOR,
-    UNKNOWN
-};
 
 
 class User
@@ -33,6 +24,6 @@ protected:
     QString patronymic;
     QString phoneNumber;
     QString email;
-    IBank& currentBank;
+    //Bank& currentBank;
 };
 

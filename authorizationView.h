@@ -8,7 +8,7 @@ class AuthorizationView : public QWidget
 public:
     explicit AuthorizationView(QWidget *parent = nullptr);
 
-    QPushButton* getButtonLogIn() const;
+    const QPushButton* getButtonLogIn() const;
 
 private:
     void initUi();

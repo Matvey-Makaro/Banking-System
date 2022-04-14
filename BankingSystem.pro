@@ -17,14 +17,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    authorizationView.cpp \
     authorization_controller.cpp \
     authorization_model.cpp \
-    authorization_view.cpp \
     bank.cpp \
     bankSystem.cpp \
+    chooseBankView.cpp \
     client.cpp \
     database.cpp \
     main.cpp \
+    mainPresenter.cpp \
+    mainView.cpp \
     mainwindow.cpp \
     user.cpp
 
@@ -32,16 +35,20 @@ HEADERS += \
     IBank.h \
     IBankSystem.h \
     IClient.h \
+    authorizationView.h \
     authorization_controller.h \
     authorization_model.h \
-    authorization_view.h \
     bank.h \
     bankSystem.h \
+    chooseBankView.h \
     client.h \
     config.h \
     database.h \
+    mainPresenter.h \
+    mainView.h \
     mainwindow.h \
-    user.h
+    user.h \
+    userType.h
 
 FORMS += \
     mainwindow.ui

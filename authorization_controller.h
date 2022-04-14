@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-#include "authorization_view.h"
+#include "authorizationView.h"
 #include "authorization_model.h"
 
 class AuthorizationController : public QObject

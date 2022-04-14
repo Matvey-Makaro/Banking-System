@@ -5,5 +5,7 @@
 class IBankSystem
 {
 public:
-    virtual IBank& getBank() = 0;
+    virtual const QStringList& getBankNames() const;
+    // virtual IBank& getBank() = 0;
+
 };

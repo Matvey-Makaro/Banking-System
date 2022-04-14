@@ -1,4 +1,4 @@
-#include "authorization_view.h"
+#include "authorizationView.h"
 
 
 AuthorizationView::AuthorizationView(QWidget *parent) : QWidget(parent)
@@ -7,7 +7,7 @@ AuthorizationView::AuthorizationView(QWidget *parent) : QWidget(parent)
 }
 
 
-QPushButton* AuthorizationView::getButtonLogIn() const
+const QPushButton* AuthorizationView::getButtonLogIn() const
 {
     return pBtnLogIn;
 }

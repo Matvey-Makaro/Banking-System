@@ -1,17 +1,18 @@
 #include "mainwindow.h"
-#include "authorization_view.h"
-#include "authorization_controller.h"
-#include "authorization_model.h"
+#include "database.h"
+#include "mainPresenter.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    AuthorizationView view;
-    AuthorizationModel model;
+    Database::getInstance();
+    MainPresenter mainPresenter;
 
-    AuthorizationController controller(view, model);
+
+
+
 
 
 //    MainWindow w;

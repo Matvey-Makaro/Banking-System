@@ -5,3 +5,4 @@
 const QString databaseName = "BankSystem";
 const QString databaseType = "QSQLITE";
 const QString databaseUserName = "program";
+const QString databaseHostName = "host";
