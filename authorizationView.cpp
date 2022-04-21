@@ -7,30 +7,30 @@ AuthorizationView::AuthorizationView(QWidget *parent) : QWidget(parent)
 }
 
 
-const QPushButton* AuthorizationView::getButtonLogIn() const
-{
-    return pBtnLogIn;
-}
+const QPushButton* AuthorizationView::getButtonSignIn() const { return btnSignIn; }
 
+const QPushButton* AuthorizationView::getButtonSignUp() const { return btnSignUp; }
 
 void AuthorizationView::initUi()
 {
-    pLblText = new QLabel("Authorization");
-    pLblLogin = new QLabel("Login:");
-    pLblPassword = new QLabel("Password:");
+    lblText = new QLabel("Authorization");
+    lblLogin = new QLabel("Login:");
+    lblPassword = new QLabel("Password:");
 
-    pEdtLogin = new QLineEdit();
-    pEdtPassword = new QLineEdit();
-    pEdtPassword->setEchoMode(QLineEdit::Password);
+    editLogin = new QLineEdit();
+    editPassword = new QLineEdit();
+    editPassword->setEchoMode(QLineEdit::Password);
 
-    pBtnLogIn = new QPushButton("Log in");
+    btnSignIn = new QPushButton("Sign in");
+    btnSignUp = new QPushButton("Sign up");
 
-    pVBox = new QVBoxLayout();
-    pVBox->addWidget(pLblText);
-    pVBox->addWidget(pLblLogin);
-    pVBox->addWidget(pEdtLogin);
-    pVBox->addWidget(pLblPassword);
-    pVBox->addWidget(pEdtPassword);
-    pVBox->addWidget(pBtnLogIn);
-    setLayout(pVBox);
+    vBox = new QVBoxLayout();
+    vBox->addWidget(lblText);
+    vBox->addWidget(lblLogin);
+    vBox->addWidget(editLogin);
+    vBox->addWidget(lblPassword);
+    vBox->addWidget(editPassword);
+    vBox->addWidget(btnSignIn);
+    vBox->addWidget(btnSignUp);
+    setLayout(vBox);
 }

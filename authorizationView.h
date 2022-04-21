@@ -8,19 +8,21 @@ class AuthorizationView : public QWidget
 public:
     explicit AuthorizationView(QWidget *parent = nullptr);
 
-    const QPushButton* getButtonLogIn() const;
+    const QPushButton* getButtonSignIn() const;
+    const QPushButton* getButtonSignUp() const;
 
 private:
     void initUi();
 
 private:
-    QVBoxLayout* pVBox;
-    QLabel* pLblText;
-    QLabel* pLblLogin;
-    QLabel* pLblPassword;
-    QLineEdit* pEdtLogin;
-    QLineEdit* pEdtPassword;
-    QPushButton* pBtnLogIn;
+    QVBoxLayout* vBox;
+    QLabel* lblText;
+    QLabel* lblLogin;
+    QLabel* lblPassword;
+    QLineEdit* editLogin;
+    QLineEdit* editPassword;
+    QPushButton* btnSignIn;
+    QPushButton* btnSignUp;
 
 
 signals:

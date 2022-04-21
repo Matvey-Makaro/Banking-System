@@ -19,8 +19,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     authorizationPresenter.cpp \
     authorizationView.cpp \
-    authorization_controller.cpp \
-    authorization_model.cpp \
     bank.cpp \
     bankSystem.cpp \
     chooseBankView.cpp \
@@ -30,6 +28,8 @@ SOURCES += \
     mainPresenter.cpp \
     mainView.cpp \
     mainwindow.cpp \
+    registrationPresenter.cpp \
+    registrationView.cpp \
     user.cpp
 
 HEADERS += \
@@ -38,8 +38,6 @@ HEADERS += \
     IClient.h \
     authorizationPresenter.h \
     authorizationView.h \
-    authorization_controller.h \
-    authorization_model.h \
     bank.h \
     bankSystem.h \
     chooseBankView.h \
@@ -49,6 +47,8 @@ HEADERS += \
     mainPresenter.h \
     mainView.h \
     mainwindow.h \
+    registrationPresenter.h \
+    registrationView.h \
     user.h \
     userType.h
 

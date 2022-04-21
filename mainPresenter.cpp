@@ -13,6 +13,8 @@ MainPresenter::MainPresenter(QObject *parent) :
     QObject(parent)
 {
     chooseBankView->show();
+    connect(chooseBankView->getBanksNameListWidget(), SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+            this, SLOT(goToAuthorization(QListWidgetItem*)));
 }
 
 void MainPresenter::goToAuthorization(QListWidgetItem* chosenBank)
@@ -36,4 +38,5 @@ void MainPresenter::getBankName(QListWidgetItem* item)
 void MainPresenter::passContorlToAuthorizationPresenter()
 {
     authorizationPresenter = std::make_shared<AuthorizationPresenter>(bank, this);
+    chooseBankView->hide();
 }
