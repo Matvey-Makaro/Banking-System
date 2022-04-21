@@ -2,7 +2,9 @@
 
 #include <QString>
 
-const QString databaseName = "BankSystem";
-const QString databaseType = "QSQLITE";
-const QString databaseUserName = "program";
-const QString databaseHostName = "host";
+static const QString databaseName = "BankSystem";
+static const QString databaseType = "QSQLITE";
+static const QString databaseUserName = "program";
+static const QString databaseHostName = "host";
+
+static const QString bankNamesTableName = "BankNames";

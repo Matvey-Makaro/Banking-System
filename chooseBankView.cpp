@@ -6,3 +6,9 @@ ChooseBankView::ChooseBankView(const QStringList& bankNames, QWidget *parent) : 
     banks->addItems(bankNames);
     banks->show();
 }
+
+
+const QListWidget* ChooseBankView::getBanksNameListWidget()
+{
+    return banks;
+}

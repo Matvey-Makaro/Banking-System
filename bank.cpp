@@ -18,12 +18,10 @@ void Bank::createUser(const QString& login, const QString& password, const UserT
             "patronymic, phoneNumber, email)"
             "VALUES('%1', '%2', %3, '%4', '%5', '%6', '%7', '%8');";
 
-    QString tmp = str.arg(login).arg(password).arg(type).arg(userName).arg(userSurname).arg(userPatronymic).arg(phoneNumber).arg(email);
-    qDebug() << tmp << '\n';
-    query.exec(tmp);
-    if(query.isActive())
-        qDebug() << "True\n";
-    else
-        qDebug() << "False\n";
-    qDebug() << "Error " << query.lastError();
+    QString tmp = str.arg(login).arg(password).arg(type).arg(userName).arg(userSurname).arg(userPatronymic).arg(phoneNumber).arg(email);    
+    if(!query.exec(tmp))
+        qDebug() << "Error " << query.lastError();
 }
+
+
+const QString& Bank::getName() const { return name; }

@@ -5,6 +5,7 @@
 #include "chooseBankView.h"
 
 #include <QObject>
+#include <QListWidgetItem>
 
 class MainPresenter : public QObject
 {
@@ -15,7 +16,7 @@ public:
 signals:
 
 private slots:
-
+void getBankNameFromBankingSystem(QListWidgetItem* item);
 
 private:
     MainView* mainView;
