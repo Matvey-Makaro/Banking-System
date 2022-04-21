@@ -26,6 +26,5 @@ private:
     //std::vector<std::shared_ptr<IBank>> banks;
     QStringList bankNames;
     QSqlQuery query;
-    QVector<std::shared_ptr<IBank>> vec;
 };
 

@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    authorizationPresenter.cpp \
     authorizationView.cpp \
     authorization_controller.cpp \
     authorization_model.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     IBank.h \
     IBankSystem.h \
     IClient.h \
+    authorizationPresenter.h \
     authorizationView.h \
     authorization_controller.h \
     authorization_model.h \

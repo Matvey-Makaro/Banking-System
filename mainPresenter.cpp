@@ -1,20 +1,49 @@
 #include "mainPresenter.h"
 #include "bankSystem.h"
+#include "authorizationView.h"
 
 #include <QString>
 #include <QListWidget>
 #include <QVariant>
 
-
-MainPresenter::MainPresenter(QObject *parent) : QObject(parent)
+// Могуть быть проблемы из-за такого списка инизиализации
+MainPresenter::MainPresenter(QObject *parent) :
+    bankSystem(new BankSystem()), chooseBankView(new ChooseBankView(bankSystem->getBankNames())), QObject(parent)
 {
-    bankSystem = new BankSystem();
-    chooseBankView = new ChooseBankView(bankSystem->getBankNames());
     chooseBankView->show();
 }
 
-void MainPresenter::getBankNameFromBankingSystem(QListWidgetItem* item)
+MainPresenter::~MainPresenter()
 {
-    QString bankName = item->data(Qt::DisplayRole).toString();
+    if(bankSystem != nullptr)
+        delete bankSystem;
+    if(chooseBankView != nullptr)
+        delete chooseBankView;
+    // Добавить сюда другие сущности, которые будут созданы с помощью new
+
+}
+
+void MainPresenter::goToAuthorization(QListWidgetItem* chosenBank)
+{
+    getBankName(chosenBank);
+    getBank();
+
+    passContorlToAuthorizationPresenter();
+}
+
+void MainPresenter::getBank()
+{
+    bank = bankSystem->getBank(bankName);
+}
+
+void MainPresenter::getBankName(QListWidgetItem* item)
+{
+    bankName = item->data(Qt::DisplayRole).toString();
+
+}
+
+void MainPresenter::passContorlToAuthorizationPresenter()
+{
+    authorizationPresenter = new AuthorizationPresenter(bank, this);
 
 }
