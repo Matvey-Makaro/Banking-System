@@ -12,6 +12,5 @@ public:
                             const QString& name, const QString& surname, const QString& patronymic,
                             const QString& phoneNumber, const QString& email) = 0;
     virtual const QString& getName() const = 0;
-
     virtual ~IBank() = default;
 };

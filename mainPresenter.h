@@ -8,13 +8,14 @@
 
 #include <QObject>
 #include <QListWidgetItem>
+#include <memory>
 
 class MainPresenter : public QObject
 {
     Q_OBJECT
 public:
     explicit MainPresenter(QObject *parent = nullptr);
-    ~MainPresenter();
+    ~MainPresenter() = default;
 
 signals:
 
@@ -28,11 +29,11 @@ private:
     void passContorlToAuthorizationPresenter();
 
 private:
-    IBankSystem* bankSystem;
-    ChooseBankView* chooseBankView;
-    MainView* mainView;
-    AuthorizationPresenter* authorizationPresenter;
+    std::shared_ptr<IBankSystem> bankSystem;
+    std::shared_ptr<ChooseBankView> chooseBankView;
+    std::shared_ptr<MainView> mainView;
+    std::shared_ptr<AuthorizationPresenter> authorizationPresenter;
     QString bankName;
-    IBank* bank;
+    std::shared_ptr<IBank> bank;
 };
 

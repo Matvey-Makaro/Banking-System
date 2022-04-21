@@ -8,19 +8,11 @@
 
 // Могуть быть проблемы из-за такого списка инизиализации
 MainPresenter::MainPresenter(QObject *parent) :
-    bankSystem(new BankSystem()), chooseBankView(new ChooseBankView(bankSystem->getBankNames())), QObject(parent)
+    bankSystem(std::make_shared<BankSystem>()),
+    chooseBankView(std::make_shared<ChooseBankView>(bankSystem->getBankNames())),
+    QObject(parent)
 {
     chooseBankView->show();
-}
-
-MainPresenter::~MainPresenter()
-{
-    if(bankSystem != nullptr)
-        delete bankSystem;
-    if(chooseBankView != nullptr)
-        delete chooseBankView;
-    // Добавить сюда другие сущности, которые будут созданы с помощью new
-
 }
 
 void MainPresenter::goToAuthorization(QListWidgetItem* chosenBank)
@@ -39,11 +31,9 @@ void MainPresenter::getBank()
 void MainPresenter::getBankName(QListWidgetItem* item)
 {
     bankName = item->data(Qt::DisplayRole).toString();
-
 }
 
 void MainPresenter::passContorlToAuthorizationPresenter()
 {
-    authorizationPresenter = new AuthorizationPresenter(bank, this);
-
+    authorizationPresenter = std::make_shared<AuthorizationPresenter>(bank, this);
 }

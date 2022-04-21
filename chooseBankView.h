@@ -11,7 +11,7 @@ class ChooseBankView : public QWidget
 public:
     explicit ChooseBankView(const QStringList& bankNames, QWidget *parent = nullptr);
     const QListWidget* getBanksNameListWidget();
-    ~ChooseBankView();
+    ~ChooseBankView() = default;
 signals:
 
 private:

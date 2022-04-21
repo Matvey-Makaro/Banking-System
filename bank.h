@@ -14,6 +14,7 @@ public:
                             const QString& name, const QString& surname, const QString& patronymic,
                             const QString& phoneNumber, const QString& email);
     virtual const QString& getName() const override;
+    virtual ~Bank() = default;
 
 
 private:

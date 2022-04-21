@@ -3,6 +3,7 @@
 #include <authorizationView.h>
 
 #include <QWidget>
+#include <memory>
 
 class MainView : public QWidget
 {
@@ -16,7 +17,7 @@ private:
     void initUi();
 
 private:
-    AuthorizationView* authorizationView;
+    std::shared_ptr<AuthorizationView> authorizationView;
 
 
 };

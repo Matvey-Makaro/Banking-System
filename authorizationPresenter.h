@@ -4,18 +4,19 @@
 #include "IBank.h"
 
 #include <QObject>
+#include <memory>
 
 class AuthorizationPresenter : public QObject
 {
     Q_OBJECT
 public:
-    explicit AuthorizationPresenter(IBank& bank, QObject *parent = nullptr);
-    ~AuthorizationPresenter();
+    explicit AuthorizationPresenter(std::shared_ptr<IBank> bank, QObject *parent = nullptr);
+    ~AuthorizationPresenter() = default;
 
 signals:
 
 private:
-    AuthorizationView* authorizationView;
-    IBank& bank;
+    std::shared_ptr<AuthorizationView> authorizationView;
+    std::shared_ptr<IBank> bank;
 };
 

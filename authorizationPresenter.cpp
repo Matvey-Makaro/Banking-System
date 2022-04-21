@@ -1,15 +1,8 @@
 #include "authorizationPresenter.h"
 
-AuthorizationPresenter::AuthorizationPresenter(IBank& IBank, QObject *parent) :
-    authorizationView(new AuthorizationView()), bank(IBank), QObject(parent)
+AuthorizationPresenter::AuthorizationPresenter(std::shared_ptr<IBank> IBank, QObject *parent) :
+    authorizationView(std::make_shared<AuthorizationView>()), bank(IBank), QObject(parent)
 {
     authorizationView->show();
 }
-
-AuthorizationPresenter::~AuthorizationPresenter()
-{
-    if(authorizationView != nullptr)
-        delete authorizationView;
-}
-
 

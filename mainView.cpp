@@ -8,6 +8,6 @@ MainView::MainView(QWidget *parent) : QWidget(parent)
 
 void MainView::initUi()
 {
-    authorizationView = new AuthorizationView();
+    authorizationView = std::make_shared<AuthorizationView>();
     authorizationView->show();
 }

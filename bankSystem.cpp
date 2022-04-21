@@ -16,16 +16,17 @@ BankSystem::BankSystem()
 const QStringList& BankSystem::getBankNames() const { return bankNames; }
 
 
-IBank& BankSystem::getBank(const QString& bankName)
+std::shared_ptr<IBank> BankSystem::getBank(const QString& bankName)
 {
     // Исправить, надо сначала поискать создавался ли такой банк, и если нет, то создавать новый
 //    std::find(banks.begin(), banks.end(), [&bankName](std::shared_ptr<IBank> bank){
 //       //return bank->getName() == bankName;
 //        return true;
 //    });
-    banks.push_back(std::make_shared<Bank>(bankName));
+    std::shared_ptr<Bank> bank = std::make_shared<Bank>(bankName);
+    banks.push_back(bank);
     qDebug() << banks.back()->getName();
-    return *banks.back();
+    return bank;
 }
 
 

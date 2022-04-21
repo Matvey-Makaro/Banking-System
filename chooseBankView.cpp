@@ -7,19 +7,11 @@ ChooseBankView::ChooseBankView(const QStringList& bankNames, QWidget *parent) : 
     initUI(bankNames);
 }
 
-
 const QListWidget* ChooseBankView::getBanksNameListWidget() { return banks; }
-
-
-ChooseBankView::~ChooseBankView()
-{
-    delete vbox;
-}
-
 
 void ChooseBankView::initUI(const QStringList& bankNames)
 {
-    vbox = new QVBoxLayout();
+    vbox = new QVBoxLayout(this);
     banks = new QListWidget();
     banks->addItems(bankNames);
     //vbox->addStretch();

@@ -15,8 +15,8 @@ class BankSystem : public IBankSystem
 public:
     BankSystem();
     virtual const QStringList& getBankNames() const override;
-    virtual IBank& getBank(const QString& bankName) override;
-    virtual ~BankSystem() {}
+    virtual std::shared_ptr<IBank> getBank(const QString& bankName) override;
+    virtual ~BankSystem() = default;
 
 private:
     void readBankNames();
