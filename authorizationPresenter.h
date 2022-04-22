@@ -2,6 +2,7 @@
 
 #include "authorizationView.h"
 #include "IBank.h"
+#include "registrationPresenter.h"
 
 #include <QObject>
 #include <memory>
@@ -15,8 +16,12 @@ public:
 
 signals:
 
+private slots:
+    void goToRegistration();
+
 private:
     std::shared_ptr<AuthorizationView> authorizationView;
     std::shared_ptr<IBank> bank;
+    std::shared_ptr<RegistrationPresenter> registrationPresenter;
 };
 

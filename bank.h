@@ -4,6 +4,7 @@
 #include "userType.h"
 
 #include <QString>
+#include <QStringList>
 #include <QSqlQuery>
 
 class Bank : public IBank
