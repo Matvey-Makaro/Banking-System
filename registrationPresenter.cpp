@@ -5,3 +5,8 @@ RegistrationPresenter::RegistrationPresenter(std::shared_ptr<IBank> IBank, QObje
 {
     registrationView->show();
 }
+
+void RegistrationPresenter::signUpUser()
+{
+
+}

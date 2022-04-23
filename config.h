@@ -8,3 +8,4 @@ static const QString databaseUserName = "program";
 static const QString databaseHostName = "host";
 
 static const QString bankNamesTableName = "BankNames";
+static const QString applicationsForRegistrationPostfix = "ApplicationsForRegistration";

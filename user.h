@@ -11,12 +11,24 @@
 class User
 {
 public:
-    User();
+    User(QString login, QString password, QString name, QString surname, QString patronymic,
+         QString phoneNumber, QString email, QString placeOfWork);
+    UserType getType() const;
+    const QString& getLogin() const;
+    const QString& getPassword() const;
+    const QString& getName() const;
+    const QString& getSurname() const;
+    const QString& getPatronymic() const;
+    const QString& getPhoneNumber() const;
+    const QString& getEmail() const;
+    const QString& getPlaceOfWork() const;
+    const QString& getHashedPassword() const;
+    void setHashedPassword(QString password);
+
 
 
 protected:
     UserType type;
-    uint64_t id;
     QString login;
     QString password;
     QString name;
@@ -24,6 +36,9 @@ protected:
     QString patronymic;
     QString phoneNumber;
     QString email;
+    QString placeOfWork;
+    uint64_t id;
+    QString hashedPassword;
     //Bank& currentBank;
 };
 

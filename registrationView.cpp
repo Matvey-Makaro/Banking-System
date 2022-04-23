@@ -1,4 +1,9 @@
 #include "registrationView.h"
+#include "noNumberValidator.h"
+#include "lengthValidator.h"
+
+#include <QRegExpValidator>
+#include <QRegExp>
 
 RegistrationView::RegistrationView(QWidget *parent) : QWidget(parent)
 {
@@ -29,6 +34,30 @@ void RegistrationView::initUI()
     passwordEdit->setEchoMode(QLineEdit::Password);
     repeatPasswordEdit = new QLineEdit();
     repeatPasswordEdit->setEchoMode(QLineEdit::Password);
+
+    NoNumberValidator* noNumberValidator = new NoNumberValidator(this);
+    nameEdit->setValidator(noNumberValidator);
+    surnameEdit->setValidator(noNumberValidator);
+    patronymicEdit->setValidator(noNumberValidator);
+    QRegExpValidator* phoneNumberValidator = new QRegExpValidator(QRegExp("^\\+\\d{1,12}$"), this);
+    phoneNumberEdit->setValidator(phoneNumberValidator);
+    QRegExpValidator* emailValidator = new QRegExpValidator(QRegExp("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$"), this);
+    emailEdit->setValidator(emailValidator);
+    LengthValidator* lenValidator = new LengthValidator(32, 6, this);
+    loginEdit->setValidator(lenValidator);
+    passwordEdit->setValidator(lenValidator);
+    repeatPasswordEdit->setValidator(lenValidator);
+
+
+
+    nameLbl->setBuddy(nameEdit);
+    surnameLbl->setBuddy(surnameEdit);
+    patronymicLbl->setBuddy(patronymicEdit);
+    phoneNumberLbl->setBuddy(phoneNumberEdit);
+    emailLbl->setBuddy(emailEdit);
+    loginLbl->setBuddy(loginEdit);
+    passwordLbl->setBuddy(passwordEdit);
+    repeatPasswordLbl->setBuddy(repeatPasswordEdit);
 
     signUpBtn = new QPushButton("Sign up");
 

@@ -36,6 +36,7 @@ HEADERS += \
     IBank.h \
     IBankSystem.h \
     IClient.h \
+    IPasswordHasher.h \
     authorizationPresenter.h \
     authorizationView.h \
     bank.h \
@@ -44,9 +45,12 @@ HEADERS += \
     client.h \
     config.h \
     database.h \
+    lengthValidator.h \
     mainPresenter.h \
     mainView.h \
     mainwindow.h \
+    md5PasswordHasher.h \
+    noNumberValidator.h \
     registrationPresenter.h \
     registrationView.h \
     user.h \

@@ -12,7 +12,8 @@ class RegistrationPresenter : public QObject
 public:
     explicit RegistrationPresenter(std::shared_ptr<IBank> bank, QObject *parent = nullptr);
 
-signals:
+private slots:
+    void signUpUser();
 
 
 private:
