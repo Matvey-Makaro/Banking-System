@@ -9,3 +9,4 @@ static const QString databaseHostName = "host";
 
 static const QString bankNamesTableName = "BankNames";
 static const QString applicationsForRegistrationPostfix = "ApplicationsForRegistration";
+static const QString enterprisesTableName = "Enterprises";

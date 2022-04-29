@@ -1,11 +1,12 @@
 #pragma once
 
-#include "IBank.h"
 #include "userType.h"
 
 #include <cstdint>
 #include <QString>
+#include <memory>
 
+class IBank;
 
 
 class User
@@ -22,8 +23,12 @@ public:
     const QString& getPhoneNumber() const;
     const QString& getEmail() const;
     const QString& getPlaceOfWork() const;
+    int getEnterpriseId() const;
+    void setEnterpriseId(int id);
     const QString& getHashedPassword() const;
     void setHashedPassword(QString password);
+    std::shared_ptr<IBank> getCurrentBank() const;
+    void setCurrentBank(std::shared_ptr<IBank> bank);
 
 
 
@@ -37,8 +42,9 @@ protected:
     QString phoneNumber;
     QString email;
     QString placeOfWork;
-    uint64_t id;
+    int id;
+    int enterpriseId;
     QString hashedPassword;
-    //Bank& currentBank;
+    std::shared_ptr<IBank> currentBank;
 };
 

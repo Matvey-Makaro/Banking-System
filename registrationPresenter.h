@@ -19,5 +19,6 @@ private slots:
 private:
     std::shared_ptr<IBank> bank;
     std::shared_ptr<RegistrationView> registrationView;
+
 };
 

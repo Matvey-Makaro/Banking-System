@@ -18,5 +18,7 @@ const QString& User::getPatronymic() const { return patronymic; }
 const QString& User::getPhoneNumber() const {return phoneNumber; }
 const QString& User::getEmail() const { return email; }
 const QString& User::getPlaceOfWork() const { return placeOfWork; }
+int User::getEnterpriseId() const { return enterpriseId; }
+void User::setEnterpriseId(int id){ enterpriseId = id; }
 const QString& User::getHashedPassword() const {return hashedPassword; }
 void User::setHashedPassword(QString password) { hashedPassword = std::move(password); }

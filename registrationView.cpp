@@ -10,8 +10,6 @@ RegistrationView::RegistrationView(QWidget *parent) : QWidget(parent)
     initUI();
 }
 
-const QPushButton* RegistrationView::getSignUpBtn() const { return signUpBtn; }
-
 void RegistrationView::initUI()
 {
     registrationLbl = new QLabel("Registration");

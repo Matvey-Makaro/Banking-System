@@ -14,15 +14,16 @@ class Bank : public IBank
 {
 public:
     Bank(QString bankName);
-    virtual void createUser(User& user);
-    virtual void createUser(const QString& login, const QString& password, const UserType type,
+    virtual void addUserToApplicationsForRegistration(User& user) override;
+    virtual void addUserToApplicationsForRegistration(const QString& login, const QString& password, const UserType type,
                             const QString& name, const QString& surname, const QString& patronymic,
-                            const QString& phoneNumber, const QString& email);
+                            const QString& phoneNumber, const QString& email) override;
     virtual const QString& getName() const override;
     virtual ~Bank() = default;
 
 private:
     bool isUserExist(const User& user);
+    int getEnterpriseId(const QString& enterpriseName);
 
 private:
     QString name;
