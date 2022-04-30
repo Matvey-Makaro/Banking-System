@@ -2,6 +2,7 @@
 
 #include "IBank.h"
 #include "registrationView.h"
+#include "user.h"
 
 #include <QObject>
 #include <memory>
@@ -12,9 +13,15 @@ class RegistrationPresenter : public QObject
 public:
     explicit RegistrationPresenter(std::shared_ptr<IBank> bank, QObject *parent = nullptr);
 
-private slots:
-    void signUpUser();
+signals:
+    void notAllFieldsAreFilled() const;
+    void registrationApplicationAccepted() const;
 
+private slots:
+    void signUpUser() const;
+
+private:
+    bool isAllFieldsFilledIn(const User& user) const;
 
 private:
     std::shared_ptr<IBank> bank;

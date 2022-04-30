@@ -16,10 +16,14 @@ public:
     QString getPatronymic() const { return patronymicEdit->text(); }
     QString getPhoneNumber() const { return phoneNumberEdit->text(); }
     QString getEmail() const { return emailEdit->text(); }
+    QString getPassport() const { return passportEdit->text(); }
     QString getLogin() const { return loginEdit->text(); }
     QString getPassword() const { return passwordEdit->text(); }
+    bool isFromRB() const {return fromRBCheckBox->checkState() == Qt::Checked; }
 
-signals:
+public slots:
+    void warnNotAllFieldsAreFilled();
+    void notifyRegistrationApplicationAccepted();
 
 private:
     void initUI();
@@ -31,18 +35,21 @@ private:
     QLabel* patronymicLbl;
     QLabel* phoneNumberLbl;
     QLabel* emailLbl;
+    QLabel* passportLbl;
     QLabel* loginLbl;
     QLabel* passwordLbl;
-    QLabel* repeatPasswordLbl;
     QLineEdit* nameEdit;
     QLineEdit* surnameEdit;
     QLineEdit* patronymicEdit;
     QLineEdit* phoneNumberEdit;
     QLineEdit* emailEdit;
+    QLineEdit* passportEdit;
     QLineEdit* loginEdit;
     QLineEdit* passwordEdit;
-    QLineEdit* repeatPasswordEdit;
+    QCheckBox* fromRBCheckBox;
     QPushButton* signUpBtn;
+    QMessageBox* notAllFieldsAreFilledMsgBox = nullptr;
+    QMessageBox* registrationApplicationAcceptedMsgBox = nullptr;
 
 };
 

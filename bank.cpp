@@ -19,12 +19,11 @@ void Bank::addUserToApplicationsForRegistration(User& user)
     user.setHashedPassword(hasher->hash(user.getPassword()));
     if(isUserExist(user))
         throw std::logic_error("Such user exists.");    // Возможно надо будет заменит на кастомное исключение
-    user.setEnterpriseId(getEnterpriseId(user.getPlaceOfWork()));
-    QString str = "INSERT INTO " + name + " " + applicationsForRegistrationPostfix + 
-            " (login, password, userType, name, surname, patronymic, phoneNumber, email, enterpiseId) "
-            "VALUES('%1', '%2', %3, '%4', '%5', '%6', '%7', '%8', %9);";
-    QString tmp = str.arg(user.getLogin()).arg(user.getHashedPassword()).arg(user.getType()).arg(user.getName()).
-            arg(user.getSurname()).arg(user.getPatronymic()).arg(user.getPhoneNumber()).arg(user.getEmail()).arg(user.getEnterpriseId());
+    QString str = "INSERT INTO " + name + applicationsForRegistrationPostfix +
+            " (login, password, userType, name, surname, patronymic, phoneNumber, email, passport, fromRB) "
+            "VALUES('%1', '%2', %3, '%4', '%5', '%6', '%7', '%8', '%9', %10);";
+    QString tmp = str.arg(user.getLogin()).arg(user.getHashedPassword()).arg(user.getType()).arg(user.getName()).arg(user.getSurname()).
+            arg(user.getPatronymic()).arg(user.getPhoneNumber()).arg(user.getEmail()).arg(user.getPassport()).arg(user.getIsFromRB());
     if(!query.exec(tmp))
     {
         qDebug() << "Error" << query.lastError();

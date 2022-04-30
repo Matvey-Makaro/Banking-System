@@ -10,6 +10,22 @@ RegistrationView::RegistrationView(QWidget *parent) : QWidget(parent)
     initUI();
 }
 
+void RegistrationView::warnNotAllFieldsAreFilled()
+{
+    if(!notAllFieldsAreFilledMsgBox)
+        notAllFieldsAreFilledMsgBox = new QMessageBox(QMessageBox::Warning, "Warning", "Not all required fields are filled", QMessageBox::Ok, this);
+    notAllFieldsAreFilledMsgBox->exec();
+}
+
+void RegistrationView::notifyRegistrationApplicationAccepted()
+{
+    if(!registrationApplicationAcceptedMsgBox)
+        registrationApplicationAcceptedMsgBox = new QMessageBox(QMessageBox::Information, "Запрос отправлен",
+                                                                "Ваша заявка будет рассмотрена менеджером. Пожалуйста подождите одобрения заявки",
+                                                                QMessageBox::Ok, this);
+    registrationApplicationAcceptedMsgBox->exec();
+}
+
 void RegistrationView::initUI()
 {
     registrationLbl = new QLabel("Registration");
@@ -18,20 +34,19 @@ void RegistrationView::initUI()
     patronymicLbl = new QLabel("Patronymic:");
     phoneNumberLbl = new QLabel("Phone number:");
     emailLbl = new QLabel("Email:");
+    passportLbl = new QLabel("Passport:");
     loginLbl = new QLabel("Login:");
     passwordLbl = new QLabel("Password:");
-    repeatPasswordLbl = new QLabel("Repeat password:");
 
     nameEdit = new QLineEdit();
     surnameEdit = new QLineEdit();
     patronymicEdit = new QLineEdit();
     phoneNumberEdit = new QLineEdit();
-    emailEdit = new QLineEdit();;
-    loginEdit = new QLineEdit();;
+    emailEdit = new QLineEdit();
+    passportEdit = new QLineEdit();
+    loginEdit = new QLineEdit();
     passwordEdit = new QLineEdit();
     passwordEdit->setEchoMode(QLineEdit::Password);
-    repeatPasswordEdit = new QLineEdit();
-    repeatPasswordEdit->setEchoMode(QLineEdit::Password);
 
     NoNumberValidator* noNumberValidator = new NoNumberValidator(this);
     nameEdit->setValidator(noNumberValidator);
@@ -44,8 +59,6 @@ void RegistrationView::initUI()
     LengthValidator* lenValidator = new LengthValidator(32, 6, this);
     loginEdit->setValidator(lenValidator);
     passwordEdit->setValidator(lenValidator);
-    repeatPasswordEdit->setValidator(lenValidator);
-
 
 
     nameLbl->setBuddy(nameEdit);
@@ -53,9 +66,11 @@ void RegistrationView::initUI()
     patronymicLbl->setBuddy(patronymicEdit);
     phoneNumberLbl->setBuddy(phoneNumberEdit);
     emailLbl->setBuddy(emailEdit);
+    passportLbl->setBuddy(passportEdit);
     loginLbl->setBuddy(loginEdit);
     passwordLbl->setBuddy(passwordEdit);
-    repeatPasswordLbl->setBuddy(repeatPasswordEdit);
+
+    fromRBCheckBox = new QCheckBox("Citizen of the Republic of Belarus");
 
     signUpBtn = new QPushButton("Sign up");
 
@@ -72,15 +87,17 @@ void RegistrationView::initUI()
     vbox->addWidget(phoneNumberEdit);
     vbox->addWidget(emailLbl);
     vbox->addWidget(emailEdit);
+    vbox->addWidget(passportLbl);
+    vbox->addWidget(passportEdit);
     vbox->addWidget(loginLbl);
     vbox->addWidget(loginEdit);
     vbox->addWidget(passwordLbl);
     vbox->addWidget(passwordEdit);
-    vbox->addWidget(repeatPasswordLbl);
-    vbox->addWidget(repeatPasswordEdit);
+    vbox->addWidget(fromRBCheckBox);
     vbox->addWidget(signUpBtn);
     vbox->addStretch();
 
     setLayout(vbox);
-
 }
+
+
