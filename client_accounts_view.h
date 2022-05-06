@@ -16,15 +16,7 @@ public:
     const QPushButton* getShowAccInfoBtn() const { return showAccInfoBtn; }
 
 
-private slots:
-    void openAccount();
-    void closeAccount();
-    void showAccountInfo();
-    void putMoney();
-    void withdrawMoney();
-    void transferMoney();
 
-    void changeCurrentAccountId(QListWidgetItem *listItem);
 
 private:
     void initUi();

@@ -25,6 +25,8 @@ SOURCES += \
     client.cpp \
     client_accounts_presenter.cpp \
     client_accounts_view.cpp \
+    client_deposits_presenter.cpp \
+    client_deposits_view.cpp \
     client_presenter.cpp \
     client_view.cpp \
     database.cpp \
@@ -45,6 +47,8 @@ HEADERS += \
     client.h \
     client_accounts_presenter.h \
     client_accounts_view.h \
+    client_deposits_presenter.h \
+    client_deposits_view.h \
     client_presenter.h \
     client_view.h \
     config.h \

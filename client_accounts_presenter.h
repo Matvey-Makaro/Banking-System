@@ -11,6 +11,16 @@ class ClientAccountsPresenter : public QObject
 public:
     explicit ClientAccountsPresenter(QObject *parent = nullptr);
 
+private slots:
+    void openAccount();
+    void closeAccount();
+    void showAccountInfo();
+    void putMoney();
+    void withdrawMoney();
+    void transferMoney();
+
+    void changeCurrentAccountId(QListWidgetItem *listItem);
+
 
 private:
     std::shared_ptr<ClientAccountsView> clientAccountsView;
