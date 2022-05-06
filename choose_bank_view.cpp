@@ -1,4 +1,4 @@
-#include "chooseBankView.h"
+#include "choose_bank_view.h"
 
 #include <QDebug>
 

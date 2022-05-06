@@ -21,6 +21,14 @@ public:
     bool isFromRB() const { return client->isFromRB(); }
 
 
+private slots:
+    void goToClientAccounts();
+    void goToClientDeposits();
+    void goToClientCredits();
+    void goToClientInstallments();
+    void goToSalaryProject();
+
+
 private:
     std::shared_ptr<IClient> client;
     std::shared_ptr<ClientView> clientView;

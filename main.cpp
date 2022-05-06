@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "database.h"
-#include "mainPresenter.h"
+#include "main_presenter.h"
 
-#include "md5PasswordHasher.h" //TODO: Удалить потом
+#include "md5_password_hasher.h" //TODO: Удалить потом
 
 #include <QApplication>
 

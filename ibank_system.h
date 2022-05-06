@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IBank.h"
+#include "ibank.h"
 
 #include <QString>
 #include <QStringList>

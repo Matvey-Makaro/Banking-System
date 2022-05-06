@@ -1,6 +1,6 @@
 #pragma once
 
-#include <authorizationView.h>
+#include <authorization_view.h>
 
 #include <QWidget>
 #include <memory>

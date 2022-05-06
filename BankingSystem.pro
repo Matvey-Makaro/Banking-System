@@ -17,48 +17,50 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    authorizationPresenter.cpp \
-    authorizationView.cpp \
+    authorization_presenter.cpp \
+    authorization_view.cpp \
     bank.cpp \
-    bankSystem.cpp \
-    chooseBankView.cpp \
+    bank_system.cpp \
+    choose_bank_view.cpp \
     client.cpp \
-    clientPresenter.cpp \
-    clientView.cpp \
+    client_accounts_view.cpp \
+    client_presenter.cpp \
+    client_view.cpp \
     database.cpp \
     main.cpp \
-    mainPresenter.cpp \
-    mainView.cpp \
+    main_presenter.cpp \
+    main_view.cpp \
     mainwindow.cpp \
-    registrationPresenter.cpp \
-    registrationView.cpp \
+    registration_presenter.cpp \
+    registration_view.cpp \
     user.cpp
 
 HEADERS += \
-    IBank.h \
-    IBankSystem.h \
-    IClient.h \
-    IPasswordHasher.h \
-    authorizationPresenter.h \
-    authorizationView.h \
+    authorization_presenter.h \
+    authorization_view.h \
     bank.h \
-    bankSystem.h \
-    chooseBankView.h \
+    bank_system.h \
+    choose_bank_view.h \
     client.h \
-    clientPresenter.h \
-    clientView.h \
+    client_accounts_view.h \
+    client_presenter.h \
+    client_view.h \
     config.h \
     database.h \
-    lengthValidator.h \
-    mainPresenter.h \
-    mainView.h \
+    ibank.h \
+    ibank_system.h \
+    iclient.h \
+    ipassword_hasher.h \
+    length_validator.h \
+    main_presenter.h \
+    main_view.h \
     mainwindow.h \
-    md5PasswordHasher.h \
-    noNumberValidator.h \
-    registrationPresenter.h \
-    registrationView.h \
+    md5_password_hasher.h \
+    no_number_validator.h \
+    registration_presenter.h \
+    registration_view.h \
     user.h \
-    userType.h
+    user_type.h
 
 FORMS += \
     mainwindow.ui

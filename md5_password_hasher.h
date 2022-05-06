@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IPasswordHasher.h"
+#include "ipassword_hasher.h"
 
 #include <QString>
 #include <QCryptographicHash>

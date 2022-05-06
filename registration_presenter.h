@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IBank.h"
-#include "registrationView.h"
+#include "ibank.h"
+#include "registration_view.h"
 #include "user.h"
 
 #include <QObject>

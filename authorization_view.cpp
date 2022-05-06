@@ -1,5 +1,5 @@
-#include "authorizationView.h"
-#include "lengthValidator.h"
+#include "authorization_view.h"
+#include "length_validator.h"
 
 
 AuthorizationView::AuthorizationView(QWidget *parent) : QWidget(parent)

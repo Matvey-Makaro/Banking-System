@@ -1,6 +1,6 @@
 #pragma once
 
-#include "userType.h"
+#include "user_type.h"
 
 #include <cstdint>
 #include <QString>

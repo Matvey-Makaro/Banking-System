@@ -1,10 +1,10 @@
 #pragma once
 
-#include "IBank.h"
-#include "userType.h"
+#include "ibank.h"
+#include "user_type.h"
 #include "user.h"
-#include "IPasswordHasher.h"
-#include "IClient.h"
+#include "ipassword_hasher.h"
+#include "iclient.h"
 
 #include <QString>
 #include <QStringList>

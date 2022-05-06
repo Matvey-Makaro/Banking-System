@@ -1,4 +1,4 @@
-#include "mainView.h"
+#include "main_view.h"
 
 MainView::MainView(QWidget *parent) : QWidget(parent)
 {

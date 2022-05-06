@@ -1,6 +1,5 @@
 #include "clientView.h"
 
-#include <QtWidgets>
 #include <clientPresenter.h>
 #include <string>
 
@@ -41,31 +40,22 @@ void ClientView::initUI()
     infoTable->setItem(2, 1, new QTableWidgetItem(clientPresenter->getEmail()));
     infoTable->setItem(3, 1, new QTableWidgetItem(clientPresenter->getPhoneNumber()));
     infoTable->setItem(4, 1, new QTableWidgetItem(clientPresenter->getPassport()));
-    infoTable->setItem(5, 1, new QTableWidgetItem(clientPresenter->isFromRB() ? "Нет" : "Да"));
+    infoTable->setItem(5, 1, new QTableWidgetItem(clientPresenter->isFromRB() ? "No" : "Yes"));
 
     infoTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    QPushButton *accountsWork = new QPushButton("Счета", this);
-//    connect(accountsWork, &QPushButton::clicked, this, &ClientPersonalAccountWindow::showClientAccountsWindow);
-
-    QPushButton *depositsWork = new QPushButton("Вклады", this);
-//    connect(depositsWork, &QPushButton::clicked, this, &ClientPersonalAccountWindow::showClientDepositsWindow);
-
-    QPushButton *credits = new QPushButton("Кредиты", this);
-//    connect(credits, &QPushButton::clicked, this, &ClientPersonalAccountWindow::showClientCreditsWindow);
-
-    QPushButton *installments = new QPushButton("Рассрочки", this);
-//    connect(installments, &QPushButton::clicked, this, &ClientPersonalAccountWindow::showClientInstallmentsWindow);
-
-    QPushButton *salaryProject = new QPushButton("Зарплатный проект", this);
-//    connect(salaryProject, &QPushButton::clicked, this, &ClientPersonalAccountWindow::showSalaryProjectWindow);
+    accountsWorkBtn = new QPushButton("Счета", this);
+    depositsWorkBtn = new QPushButton("Вклады", this);
+    creditsBtn = new QPushButton("Кредиты", this);
+    installmentsBtn = new QPushButton("Рассрочки", this);
+    salaryProjectBtn = new QPushButton("Зарплатный проект", this);
 
     gridLayout->addWidget(userInfoLabel, 0, 0);
     gridLayout->addWidget(infoTable, 1, 0);
-    gridLayout->addWidget(accountsWork, 2, 0);
-    gridLayout->addWidget(depositsWork, 3, 0);
-    gridLayout->addWidget(credits, 4, 0);
-    gridLayout->addWidget(installments, 5, 0);
-    gridLayout->addWidget(salaryProject, 6, 0);
+    gridLayout->addWidget(accountsWorkBtn, 2, 0);
+    gridLayout->addWidget(depositsWorkBtn, 3, 0);
+    gridLayout->addWidget(creditsBtn, 4, 0);
+    gridLayout->addWidget(installmentsBtn, 5, 0);
+    gridLayout->addWidget(salaryProjectBtn, 6, 0);
     setLayout(gridLayout);
 }

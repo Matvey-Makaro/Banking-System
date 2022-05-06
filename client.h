@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IClient.h"
-#include "IBank.h"
+#include "iclient.h"
+#include "ibank.h"
 
 #include <QString>
 #include <memory>

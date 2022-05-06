@@ -1,6 +1,6 @@
-#include "registrationView.h"
-#include "noNumberValidator.h"
-#include "lengthValidator.h"
+#include "registration_view.h"
+#include "no_number_validator.h"
+#include "length_validator.h"
 
 #include <QRegExpValidator>
 #include <QRegExp>

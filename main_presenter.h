@@ -3,7 +3,7 @@
 #include "mainView.h"
 #include "IBankSystem.h"
 #include "chooseBankView.h"
-#include "authorizationPresenter.h"
+#include "authorization_presenter.h"
 #include "IBank.h"
 
 #include <QObject>

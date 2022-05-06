@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IBankSystem.h"
-#include "IBank.h"
+#include "ibank_system.h"
+#include "ibank.h"
 
 #include <QString>
 #include <QStringList>

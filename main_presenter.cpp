@@ -1,6 +1,6 @@
-#include "mainPresenter.h"
-#include "bankSystem.h"
-#include "authorizationView.h"
+#include "main_presenter.h"
+#include "bank_system.h"
+#include "authorization_view.h"
 
 #include <QString>
 #include <QListWidget>

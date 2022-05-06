@@ -1,5 +1,5 @@
 #include "bank.h"
-#include "md5PasswordHasher.h"
+#include "md5_password_hasher.h"
 #include "config.h"
 #include <client.h>
 
