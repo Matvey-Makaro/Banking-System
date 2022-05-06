@@ -23,6 +23,8 @@ SOURCES += \
     bankSystem.cpp \
     chooseBankView.cpp \
     client.cpp \
+    clientPresenter.cpp \
+    clientView.cpp \
     database.cpp \
     main.cpp \
     mainPresenter.cpp \
@@ -43,6 +45,8 @@ HEADERS += \
     bankSystem.h \
     chooseBankView.h \
     client.h \
+    clientPresenter.h \
+    clientView.h \
     config.h \
     database.h \
     lengthValidator.h \

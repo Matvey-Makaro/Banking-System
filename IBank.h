@@ -1,7 +1,6 @@
 #pragma once
 
 #include "user.h"
-#include "IClient.h"
 
 #include <QString>
 

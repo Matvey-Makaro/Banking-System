@@ -3,6 +3,7 @@
 #include "authorizationView.h"
 #include "IBank.h"
 #include "registrationPresenter.h"
+#include "clientPresenter.h"
 
 #include <QObject>
 #include <memory>
@@ -33,5 +34,6 @@ private:
     std::shared_ptr<AuthorizationView> authorizationView;
     std::shared_ptr<IBank> bank;
     std::shared_ptr<RegistrationPresenter> registrationPresenter;
+    std::shared_ptr<ClientPresenter> clientPresenter;
 };
 

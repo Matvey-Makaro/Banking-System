@@ -1,5 +1,6 @@
 #include "authorizationPresenter.h"
 #include "IClient.h"
+#include "client.h"
 
 AuthorizationPresenter::AuthorizationPresenter(std::shared_ptr<IBank> IBank, QObject *parent) :
     authorizationView(std::make_shared<AuthorizationView>()), bank(IBank), QObject(parent)
@@ -30,6 +31,7 @@ void AuthorizationPresenter::signIn()
         try
         {
             User user = bank->getUser(login, password);
+            goToUserRole(user);
         }
         catch(std::logic_error& ex) //TODO: Изменить на кастомное исключение(Отсутсвие пользователя в базе данных).
         {
@@ -44,21 +46,26 @@ void AuthorizationPresenter::signIn()
 void AuthorizationPresenter::goToUserRole(const User& user)
 {
     if(user.getType() == UserType::CLIENT)
-        goToClientRole(user);
+        return goToClientRole(user);
     if(user.getType() == UserType::MANAGER)
-        goToManagerRole(user);
+        return goToManagerRole(user);
     if(user.getType() == UserType::OPERATOR)
-        goToOperatorRole(user);
+        return goToOperatorRole(user);
     if(user.getType() == UserType::ENTERPRISE_SPECIALIST)
-        goToEnterpriseSpecialist(user);
+        return goToEnterpriseSpecialist(user);
     if(user.getType() == UserType::ADMINISTRATOR)
-        goToAdministratorRole(user);
+        return goToAdministratorRole(user);
     throw std::logic_error("Unknown role"); //TODO: Изменить на кастомное исключение
 }
 
 void AuthorizationPresenter::goToClientRole(const User& user)
 {
     qDebug() << "Go to client role\n";
+    std::shared_ptr<IClient> client = std::make_shared<Client>(user.getId(), user.getName(), user.getSurname(), user.getPatronymic(), user.getPhoneNumber(),
+                                   user.getEmail(), user.getPassport(), user.getIsFromRB(), bank);
+    clientPresenter = std::make_shared<ClientPresenter>(client);
+
+
 }
 
 void AuthorizationPresenter::goToManagerRole(const User& user)

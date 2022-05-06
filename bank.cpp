@@ -41,7 +41,7 @@ User Bank::getUser(QString& login, QString& password) const
     QString str = "SELECT * FROM " + name + "%1" + " WHERE login = '%2' AND password = '%3'";
     for(const QString& postfix : tablesToSearchPostfixs)
     {
-        QString tmp = str.arg(name + postfix).arg(login).arg(hashedPassword);
+        QString tmp = str.arg(postfix).arg(login).arg(hashedPassword);
         if(!query.exec(tmp))
             qDebug() << "Can't make command: " + tmp << '\n';
         if(query.next())

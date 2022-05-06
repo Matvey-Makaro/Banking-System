@@ -25,6 +25,7 @@ public:
     const QString& getEmail() const;
     const QString& getPassport() const;
     bool getIsFromRB() const;
+    int getId() const;
     // TODO: удалить или изменить, можно взять значение, до его установления, и возможно она вообще не нужна
     const QString& getEnterprise() const;
     int getEnterpriseId() const;
