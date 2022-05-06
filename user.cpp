@@ -3,13 +3,14 @@
 #include <utility>
 
 User::User(QString login, QString password, QString name, QString surname, QString patronymic,
-           QString phoneNumber, QString email, QString passport, bool isFromRB) :
-    type(UserType::CLIENT), login(std::move(login)), password(std::move(password)),
+           QString phoneNumber, QString email, QString passport, bool isFromRB, int id, UserType type) :
+    type(UserType::UNKNOWN), login(std::move(login)), password(std::move(password)),
     name(std::move(name)), surname(std::move(surname)), patronymic(std::move(patronymic)),
-    phoneNumber(std::move(phoneNumber)), email(std::move(email)), passport(std::move(passport)), isFromRB(isFromRB), id(0)
+    phoneNumber(std::move(phoneNumber)), email(std::move(email)), passport(std::move(passport)), isFromRB(isFromRB), id(id)
 { }
 
 UserType User::getType() const { return type; }
+void User::setType(UserType userType) { type = userType; }
 const QString& User::getLogin() const { return login; }
 const QString& User::getPassword() const { return password; }
 const QString& User::getName() const {return name; }

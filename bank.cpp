@@ -1,11 +1,13 @@
 #include "bank.h"
 #include "md5PasswordHasher.h"
 #include "config.h"
+#include <client.h>
 
 #include <utility>
 #include <QDebug>
 #include <QSqlError>
 #include <QString>
+#include <QStringList>
 #include <stdexcept>
 
 Bank::Bank(QString bankName) :
@@ -32,17 +34,33 @@ void Bank::addUserToApplicationsForRegistration(User& user)
 
 }
 
-void Bank::addUserToApplicationsForRegistration(const QString& login, const QString& password, const UserType type, const QString& userName,
-                      const QString& userSurname, const QString& userPatronymic, const QString& phoneNumber, const QString& email)
+User Bank::getUser(QString& login, QString& password) const
 {
-    QString str = "INSERT INTO " + name + " (login, password, userType, name, surname,"
-            "patronymic, phoneNumber, email)"
-            "VALUES('%1', '%2', %3, '%4', '%5', '%6', '%7', '%8');";
-
-    QString tmp = str.arg(login).arg(password).arg(type).arg(userName).arg(userSurname).arg(userPatronymic).arg(phoneNumber).arg(email);
-    if(!query.exec(tmp))
-        qDebug() << "Error " << query.lastError();
+    QStringList tablesToSearchPostfixs = {CLIENTS_POSTFIX, MANAGERS_POSTFIX, OPERATORS_POSTFIX, ENTERPRISE_SPECIALIST_POSTFIX, ADMINS_POSTFIX};
+    QString hashedPassword = hasher->hash(password);
+    QString str = "SELECT * FROM " + name + "%1" + " WHERE login = '%2' AND password = '%3'";
+    for(const QString& postfix : tablesToSearchPostfixs)
+    {
+        QString tmp = str.arg(name + postfix).arg(login).arg(hashedPassword);
+        if(!query.exec(tmp))
+            qDebug() << "Can't make command: " + tmp << '\n';
+        if(query.next())
+        {
+            int id = query.value("id").toInt();
+            QString name = query.value("name").toString();
+            QString surname = query.value("surname").toString();
+            QString patronymic = query.value("patronymic").toString();
+            QString phoneNumber = query.value("phoneNumber").toString();
+            QString email = query.value("email").toString();
+            QString passport = query.value("passport").toString();
+            bool fromRB = query.value("fromRB").toBool();
+            UserType type = getUserTypeByPostfix(postfix);
+            return User(login, hashedPassword, name, surname, patronymic, phoneNumber, email, passport, fromRB, id, type);
+        }
+    }
+    throw std::invalid_argument("No such user in database.");
 }
+
 
 const QString& Bank::getName() const { return name; }
 
@@ -67,4 +85,20 @@ int Bank::getEnterpriseId(const QString& enterpriseName)
         return query.value("id").toInt();
     else
         throw std::logic_error("No such enterprise name");  // обработать данное исключение
+}
+
+
+UserType Bank::getUserTypeByPostfix(const QString& postfix) const
+{
+    if(postfix == CLIENTS_POSTFIX)
+        return UserType::CLIENT;
+    if(postfix == MANAGERS_POSTFIX)
+        return UserType::MANAGER;
+    if(postfix == OPERATORS_POSTFIX)
+        return UserType::OPERATOR;
+    if(postfix == ENTERPRISE_SPECIALIST_POSTFIX)
+        return UserType::ENTERPRISE_SPECIALIST;
+    if(postfix == ADMINS_POSTFIX)
+        return UserType::ADMINISTRATOR;
+    return UserType::UNKNOWN;
 }

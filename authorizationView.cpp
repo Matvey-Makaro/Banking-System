@@ -8,9 +8,13 @@ AuthorizationView::AuthorizationView(QWidget *parent) : QWidget(parent)
 }
 
 
-const QPushButton* AuthorizationView::getButtonSignIn() const { return btnSignIn; }
+void AuthorizationView::warnNotAllFieldsAreFilled()
+{
+    if(!notAllFieldsAreFilledMsgBox)
+        notAllFieldsAreFilledMsgBox = new QMessageBox(QMessageBox::Warning, "Warning", "Not all required fields are filled", QMessageBox::Ok, this);
+    notAllFieldsAreFilledMsgBox->exec();
+}
 
-const QPushButton* AuthorizationView::getButtonSignUp() const { return btnSignUp; }
 
 void AuthorizationView::initUi()
 {

@@ -4,6 +4,7 @@
 #include "userType.h"
 #include "user.h"
 #include "IPasswordHasher.h"
+#include "IClient.h"
 
 #include <QString>
 #include <QStringList>
@@ -15,19 +16,19 @@ class Bank : public IBank
 public:
     Bank(QString bankName);
     virtual void addUserToApplicationsForRegistration(User& user) override;
-    virtual void addUserToApplicationsForRegistration(const QString& login, const QString& password, const UserType type,
-                            const QString& name, const QString& surname, const QString& patronymic,
-                            const QString& phoneNumber, const QString& email) override;
+    virtual User getUser(QString& login, QString& password) const override;
+    // void approveRegistration(const User& user);
     virtual const QString& getName() const override;
     virtual ~Bank() = default;
 
 private:
     bool isUserExist(const User& user);
     int getEnterpriseId(const QString& enterpriseName);
+    UserType getUserTypeByPostfix(const QString& postfix) const;
 
 private:
     QString name;
-    QSqlQuery query;
+    mutable QSqlQuery query;
     std::shared_ptr<IPasswordHasher> hasher;
 };
 

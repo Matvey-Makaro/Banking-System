@@ -15,9 +15,19 @@ public:
     ~AuthorizationPresenter() = default;
 
 signals:
+    void notAllFieldsAreFilled() const;
 
 private slots:
     void goToRegistration();
+    void signIn();
+
+private:
+    void goToUserRole(const User& user);
+    void goToClientRole(const User& user);
+    void goToManagerRole(const User& user);
+    void goToOperatorRole(const User& user);
+    void goToEnterpriseSpecialist(const User& user);
+    void goToAdministratorRole(const User& user);
 
 private:
     std::shared_ptr<AuthorizationView> authorizationView;

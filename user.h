@@ -13,8 +13,9 @@ class User
 {
 public:
     User(QString login, QString password, QString name, QString surname, QString patronymic,
-         QString phoneNumber, QString email, QString passport, bool isFromRB);
+         QString phoneNumber, QString email, QString passport, bool isFromRB, int id = 0, UserType type = UserType::UNKNOWN);
     UserType getType() const;
+    void setType(UserType userType);
     const QString& getLogin() const;
     const QString& getPassword() const;
     const QString& getName() const;
