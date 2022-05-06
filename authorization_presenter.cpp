@@ -1,5 +1,5 @@
 #include "authorization_presenter.h"
-#include "IClient.h"
+#include "iclient.h"
 #include "client.h"
 
 AuthorizationPresenter::AuthorizationPresenter(std::shared_ptr<IBank> IBank, QObject *parent) :

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "mainView.h"
-#include "IBankSystem.h"
-#include "chooseBankView.h"
+#include "main_view.h"
+#include "ibank_system.h"
+#include "choose_bank_view.h"
 #include "authorization_presenter.h"
-#include "IBank.h"
+#include "ibank.h"
 
 #include <QObject>
 #include <QListWidgetItem>

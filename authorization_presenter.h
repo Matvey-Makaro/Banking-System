@@ -1,9 +1,9 @@
 #pragma once
 
 #include "authorization_view.h"
-#include "IBank.h"
-#include "registrationPresenter.h"
-#include "clientPresenter.h"
+#include "ibank.h"
+#include "registration_presenter.h"
+#include "client_presenter.h"
 
 #include <QObject>
 #include <memory>

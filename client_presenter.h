@@ -1,7 +1,8 @@
 #pragma once
 
-#include <IClient.h>
-#include <clientView.h>
+#include <iclient.h>
+#include <client_view.h>
+#include "client_accounts_presenter.h"
 
 #include <QObject>
 #include <memory>
@@ -32,6 +33,7 @@ private slots:
 private:
     std::shared_ptr<IClient> client;
     std::shared_ptr<ClientView> clientView;
+    std::shared_ptr<ClientAccountsPresenter> clientAccountsPresenter;
 
 };
 

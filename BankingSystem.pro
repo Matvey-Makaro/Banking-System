@@ -23,6 +23,7 @@ SOURCES += \
     bank_system.cpp \
     choose_bank_view.cpp \
     client.cpp \
+    client_accounts_presenter.cpp \
     client_accounts_view.cpp \
     client_presenter.cpp \
     client_view.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     bank_system.h \
     choose_bank_view.h \
     client.h \
+    client_accounts_presenter.h \
     client_accounts_view.h \
     client_presenter.h \
     client_view.h \

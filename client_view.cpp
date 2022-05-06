@@ -1,6 +1,6 @@
-#include "clientView.h"
+#include "client_view.h"
 
-#include <clientPresenter.h>
+#include <client_presenter.h>
 #include <string>
 
 ClientView::ClientView(ClientPresenter* clientPresenter, QWidget *parent) :
