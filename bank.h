@@ -5,6 +5,7 @@
 #include "user.h"
 #include "ipassword_hasher.h"
 #include "iclient.h"
+#include "account.h"
 
 #include <QString>
 #include <QStringList>
@@ -22,6 +23,9 @@ public:
     virtual void createAccoutForClient(int clientId) override;
     virtual QSqlQueryModel& getClientAccountsModel(int clientId) override;
     virtual void updateClientAccountsModel() override;
+    virtual void closeClientAccount(int accountId) const override;
+    virtual Account getClientAccount(int accountId) const override;
+    virtual void putMoneyOnClientAccount(int accountId, double sum);
     virtual const QString& getName() const override;
     virtual ~Bank() = default;
 

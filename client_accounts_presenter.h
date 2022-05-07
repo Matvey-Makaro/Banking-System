@@ -2,6 +2,7 @@
 
 #include <iclient.h>
 #include "client_accounts_view.h"
+#include "account.h"
 
 #include <QObject>
 #include <QtWidgets>
@@ -14,6 +15,9 @@ class ClientAccountsPresenter : public QObject
 public:
     explicit ClientAccountsPresenter(std::shared_ptr<IClient> client, QObject *parent = nullptr);
     QSqlQueryModel& getAccountsQueryModel() const;
+
+signals:
+    void showAccountInfo(QString accountInfo);
 
 private slots:
     void openAccount();

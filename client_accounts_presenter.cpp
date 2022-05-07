@@ -9,6 +9,7 @@ ClientAccountsPresenter::ClientAccountsPresenter(std::shared_ptr<IClient> client
     connect(clientAccountsView->getTransferBtn(), SIGNAL(clicked()), this, SLOT(transferMoney()));
     connect(clientAccountsView->getPutMoneyBtn(), SIGNAL(clicked()), this, SLOT(putMoney()));
     connect(clientAccountsView->getShowAccInfoBtn(), SIGNAL(clicked()), this, SLOT(showAccountInfo()));
+    connect(this, SIGNAL(showAccountInfo(QString)), clientAccountsView.get(), SLOT(showAccountInfo(QString)));
     clientAccountsView->show();
 }
 
@@ -27,11 +28,15 @@ void ClientAccountsPresenter::openAccount()
 void ClientAccountsPresenter::closeAccount()
 {
     qDebug() << "Close account.\n";
+    client->closeAccount(clientAccountsView->getIdOfSelectedAccount());
+    client->updateAccountQueryModel();
+
 }
 
 void ClientAccountsPresenter::showAccountInfo()
 {
     qDebug() << "Show account info.\n";
+    emit showAccountInfo(client->getAccount(clientAccountsView->getIdOfSelectedAccount()).getInfo());
 }
 
 void ClientAccountsPresenter::putMoney()

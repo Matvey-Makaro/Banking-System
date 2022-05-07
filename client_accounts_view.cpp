@@ -3,11 +3,20 @@
 
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QMessageBox>
 
 ClientAccountsView::ClientAccountsView(ClientAccountsPresenter* presenter, QWidget *parent) :
     clientAccountsPresenter(presenter), QWidget(parent)
 {
     initUi();
+}
+
+void ClientAccountsView::showAccountInfo(QString accountInfo)
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Информация о счёте");
+    msgBox.setText(accountInfo);
+    msgBox.exec();
 }
 
 

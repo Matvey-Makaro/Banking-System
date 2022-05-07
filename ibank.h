@@ -1,6 +1,7 @@
 #pragma once
 
 #include "user.h"
+#include "account.h"
 
 #include <QString>
 #include <QSqlQueryModel>
@@ -15,6 +16,9 @@ public:
     virtual QSqlQueryModel& getClientAccountsModel(int clientId) = 0;
     virtual void createAccoutForClient(int clientId) = 0;
     virtual void updateClientAccountsModel() = 0;
+    virtual void closeClientAccount(int accountId) const = 0;
+    virtual Account getClientAccount(int accountId) const = 0;
+    virtual void putMoneyOnClientAccount(int accountId, double sum) = 0;
     virtual const QString& getName() const = 0;
     virtual ~IBank() = default;
 };

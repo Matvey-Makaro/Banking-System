@@ -99,6 +99,45 @@ void Bank::updateClientAccountsModel()
     clientAccountsModel->setQuery(clientAccountsModel->query().lastQuery());
 }
 
+void Bank::closeClientAccount(int accountId) const
+{
+    QString str = "DELETE FROM " + name + ACCOUNTS_POSTFIX +
+            " WHERE id = " + std::to_string(accountId).c_str() + ";";
+    if(!query.exec(str))
+        qDebug() << "Can't make command: " + str << '\n';
+}
+
+Account Bank::getClientAccount(int accountId) const
+{
+    QString str = "SELECT * FROM " + name + ACCOUNTS_POSTFIX +
+            " WHERE id = " + std::to_string(accountId).c_str() + ";";
+    if(!query.exec(str))
+        qDebug() << "Can't make command: " + str << '\n';
+    if(query.next())
+    {
+        int id = query.value("id").toInt();
+        int clientId = query.value("clientId").toInt();
+        double balance = query.value("balance").toDouble();
+        double percent = query.value("percent").toDouble();
+        long long creationDate = query.value("creationDate").toLongLong();
+        CurrencyType currencyType = static_cast<CurrencyType>(query.value("currencyType").toInt());
+        AccountStatusType statusType = static_cast<AccountStatusType>(query.value("status").toInt());
+        return Account(id, clientId, balance, percent, creationDate, currencyType, statusType);
+    }
+    throw std::logic_error("No such account id in database.");
+}
+
+void Bank::putMoneyOnClientAccount(int accountId, double sum)
+{
+    Account account = getClientAccount(accountId);
+    double currentSum = account.getBalance();
+    account.setBalance(currentSum + sum);
+    QString str = "UPDATE " + name + ACCOUNTS_POSTFIX +
+            "SET balance = " + std::to_string(account.getBalance()).c_str() +
+            "WHERE id = " + std::to_string(accountId).c_str() + ";";
+    if(!query.exec(str))
+        qDebug() << "Can't make command: " + str << '\n';
+}
 
 const QString& Bank::getName() const { return name; }
 

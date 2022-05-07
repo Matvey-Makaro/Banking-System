@@ -24,3 +24,20 @@ void Client::openAccount()
 {
     currentBank->createAccoutForClient(id);
 }
+
+void Client::closeAccount(int accountId)
+{
+    currentBank->closeClientAccount(accountId);
+}
+
+Account Client::getAccount(int accountId)
+{
+    Account account = currentBank->getClientAccount(accountId);
+    account.setClientName(surname + " " + name + " " + patronymic);
+    return account;
+}
+
+void Client::putMoneyOnAccount(int accountId, double sum)
+{
+    currentBank->putMoneyOnClientAccount(accountId, sum);
+}

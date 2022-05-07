@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include <QVariant>
 
 
 class ClientAccountsPresenter;
@@ -18,7 +19,10 @@ public:
     const QPushButton* getTransferBtn() const { return transferBtn; }
     const QPushButton* getPutMoneyBtn() const { return putMoneyBtn; }
     const QPushButton* getShowAccInfoBtn() const { return showAccInfoBtn; }
+    int getIdOfSelectedAccount() const { return accountsTableView->currentIndex().data().toInt(); }
 
+public slots:
+    void showAccountInfo(QString accountInfo);
 
 
 
