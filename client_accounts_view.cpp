@@ -1,8 +1,11 @@
 #include "client_accounts_view.h"
+#include "client_accounts_presenter.h"
+
 #include <QVBoxLayout>
 #include <QDebug>
 
-ClientAccountsView::ClientAccountsView(QWidget *parent) : QWidget(parent)
+ClientAccountsView::ClientAccountsView(ClientAccountsPresenter* presenter, QWidget *parent) :
+    clientAccountsPresenter(presenter), QWidget(parent)
 {
     initUi();
 }
@@ -18,7 +21,10 @@ void ClientAccountsView::initUi()
     QVBoxLayout *vBoxLayout = new QVBoxLayout(this);
 
     // TODO: Разобрать что за accountsListWidget. И возможно перенести в объявление класса.
-    auto accountsListWidget = new QListWidget(this);
+    // auto accountsListWidget = new QListWidget(this);
+    accountsTableView = new QTableView(this);
+
+    accountsTableView->setModel(&clientAccountsPresenter->getAccountsQueryModel());
 
     // Здесь нужно получать список счетов Клиента из базы данных
     // Отображать нужно только их id'шники
@@ -34,7 +40,7 @@ void ClientAccountsView::initUi()
     showAccInfoBtn = new QPushButton("Информация о счёте", this);
 
 
-    vBoxLayout->addWidget(accountsListWidget);
+    vBoxLayout->addWidget(accountsTableView);
     vBoxLayout->addWidget(showAccInfoBtn);
     vBoxLayout->addWidget(openAccountBtn);
     vBoxLayout->addWidget(closeAccountBtn);

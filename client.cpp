@@ -10,4 +10,17 @@ Client::Client(int id, QString name, QString surname, QString patronymic, QStrin
 
 }
 
+QSqlQueryModel &Client::getAccountQueryModel() const
+{
+    return currentBank->getClientAccountsModel(id);
+}
 
+void Client::updateAccountQueryModel() const
+{
+    currentBank->updateClientAccountsModel();
+}
+
+void Client::openAccount()
+{
+    currentBank->createAccoutForClient(id);
+}

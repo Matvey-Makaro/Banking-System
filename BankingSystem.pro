@@ -39,6 +39,7 @@ SOURCES += \
     user.cpp
 
 HEADERS += \
+    account_status_type.h \
     authorization_presenter.h \
     authorization_view.h \
     bank.h \
@@ -52,6 +53,8 @@ HEADERS += \
     client_presenter.h \
     client_view.h \
     config.h \
+    currency_converter.h \
+    currency_type.h \
     database.h \
     ibank.h \
     ibank_system.h \

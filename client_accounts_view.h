@@ -1,13 +1,17 @@
 #pragma once
 
+
 #include <QWidget>
 #include <QtWidgets>
+
+
+class ClientAccountsPresenter;
 
 class ClientAccountsView : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ClientAccountsView(QWidget *parent = nullptr);
+    explicit ClientAccountsView(ClientAccountsPresenter* presenter, QWidget *parent = nullptr);
     const QPushButton* getOpenAccountBtn() const { return openAccountBtn; }
     const QPushButton* getCloseAccountBtn() const { return closeAccountBtn; }
     const QPushButton* getWithdrawBtn() const { return withdrawBtn; }
@@ -22,6 +26,8 @@ private:
     void initUi();
 
 private:
+    ClientAccountsPresenter* clientAccountsPresenter;
+    QTableView* accountsTableView;
     QPushButton* openAccountBtn;
     QPushButton* closeAccountBtn;
     QPushButton* withdrawBtn;

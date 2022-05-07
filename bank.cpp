@@ -1,7 +1,9 @@
 #include "bank.h"
 #include "md5_password_hasher.h"
 #include "config.h"
-#include <client.h>
+#include "client.h"
+#include "currency_type.h"
+#include "account_status_type.h"
 
 #include <utility>
 #include <QDebug>
@@ -9,6 +11,8 @@
 #include <QString>
 #include <QStringList>
 #include <stdexcept>
+#include <string>
+#include <ctime>
 
 Bank::Bank(QString bankName) :
     name(std::move(bankName)), hasher(std::make_shared<MD5PasswordHasher>())
@@ -59,6 +63,40 @@ User Bank::getUser(QString& login, QString& password) const
         }
     }
     throw std::invalid_argument("No such user in database.");
+}
+
+void Bank::createAccoutForClient(int clientId)
+{
+    QString str = "INSERT INTO " + name + ACCOUNTS_POSTFIX +
+            " (clientId, balance, percent, creationDate, currencyType, status) "
+            "VALUES (%1, %2, %3, %4, %5, %6);";
+    double balance = 0;
+    double percent = 2.4;
+    double creationData = std::time(nullptr);
+    //TODO: Изменить, чтобы у иностранных клиентов счет в долларах открывался.
+    int curType = CurrencyType::BYN;
+    int status = AccountStatusType::OPEN;
+    QString tmp = str.arg(clientId).arg(balance).arg(percent).arg(creationData).arg(curType).arg(status);
+    if(!query.exec(tmp))
+        qDebug() << "Can't make command: " + tmp << '\n';
+}
+
+QSqlQueryModel& Bank::getClientAccountsModel(int clientId)
+{
+    if(clientAccountsModel.get() == nullptr)
+        clientAccountsModel = std::make_shared<QSqlQueryModel>();
+    QString str = "SELECT id FROM " + name + ACCOUNTS_POSTFIX +
+            " WHERE clientId = " + std::to_string(clientId).c_str() + ";";
+    clientAccountsModel->setQuery(str);
+    if(clientAccountsModel->lastError().isValid())
+        qDebug() << clientAccountsModel->lastError() << "\n";
+    clientAccountsModel->setHeaderData(0, Qt::Horizontal, "Номер счёта");
+    return *clientAccountsModel.get();
+}
+
+void Bank::updateClientAccountsModel()
+{
+    clientAccountsModel->setQuery(clientAccountsModel->query().lastQuery());
 }
 
 

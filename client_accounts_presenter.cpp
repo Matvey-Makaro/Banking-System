@@ -1,7 +1,7 @@
 #include "client_accounts_presenter.h"
 
-ClientAccountsPresenter::ClientAccountsPresenter(QObject *parent) :
-    clientAccountsView(std::make_shared<ClientAccountsView>()) , QObject(parent)
+ClientAccountsPresenter::ClientAccountsPresenter(std::shared_ptr<IClient> client, QObject *parent) :
+    client(client) ,clientAccountsView(std::make_shared<ClientAccountsView>(this)) , QObject(parent)
 {
     connect(clientAccountsView->getOpenAccountBtn(), SIGNAL(clicked()), this, SLOT(openAccount()));
     connect(clientAccountsView->getCloseAccountBtn(), SIGNAL(clicked()), this, SLOT(closeAccount()));
@@ -12,9 +12,16 @@ ClientAccountsPresenter::ClientAccountsPresenter(QObject *parent) :
     clientAccountsView->show();
 }
 
+QSqlQueryModel &ClientAccountsPresenter::getAccountsQueryModel() const
+{
+    return client->getAccountQueryModel();
+}
+
 void ClientAccountsPresenter::openAccount()
 {
     qDebug() << "Open account.\n";
+    client->openAccount();
+    client->updateAccountQueryModel();
 }
 
 void ClientAccountsPresenter::closeAccount()

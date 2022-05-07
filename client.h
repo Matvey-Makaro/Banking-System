@@ -5,6 +5,7 @@
 
 #include <QString>
 #include <memory>
+#include <QSqlQueryModel>
 
 class Client : public IClient
 {
@@ -18,6 +19,10 @@ public:
     virtual const QString& getEmail() const override { return email; }
     virtual const QString& getPassport() const override { return passport; }
     virtual bool isFromRB() const override { return fromRB; }
+
+    virtual QSqlQueryModel& getAccountQueryModel() const override;
+    virtual void updateAccountQueryModel() const override;
+    virtual void openAccount() override;
 
     virtual ~Client() = default;
 

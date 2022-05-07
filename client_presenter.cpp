@@ -14,7 +14,7 @@ ClientPresenter::ClientPresenter(std::shared_ptr<IClient> client, QObject *paren
 void ClientPresenter::goToClientAccounts()
 {
     qDebug() << "Show client accounts window.\n";
-    clientAccountsPresenter = std::make_shared<ClientAccountsPresenter>();
+    clientAccountsPresenter = std::make_shared<ClientAccountsPresenter>(client);
 }
 
 void ClientPresenter::goToClientDeposits()

@@ -9,6 +9,7 @@
 #include <QString>
 #include <QStringList>
 #include <QSqlQuery>
+#include <QSqlQueryModel>
 #include <memory>
 
 class Bank : public IBank
@@ -18,6 +19,9 @@ public:
     virtual void addUserToApplicationsForRegistration(User& user) override;
     virtual User getUser(QString& login, QString& password) const override;
     // void approveRegistration(const User& user);
+    virtual void createAccoutForClient(int clientId) override;
+    virtual QSqlQueryModel& getClientAccountsModel(int clientId) override;
+    virtual void updateClientAccountsModel() override;
     virtual const QString& getName() const override;
     virtual ~Bank() = default;
 
@@ -30,5 +34,6 @@ private:
     QString name;
     mutable QSqlQuery query;
     std::shared_ptr<IPasswordHasher> hasher;
+    std::shared_ptr<QSqlQueryModel> clientAccountsModel;
 };
 
