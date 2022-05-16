@@ -4,11 +4,40 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QMessageBox>
+#include <QInputDialog>
 
 ClientAccountsView::ClientAccountsView(ClientAccountsPresenter* presenter, QWidget *parent) :
     clientAccountsPresenter(presenter), QWidget(parent)
 {
     initUi();
+}
+
+double ClientAccountsView::getPutMoneyFromClient()
+{
+    QInputDialog inpDialog;
+    bool ok;
+    double inpMoney;
+//    do
+//    {
+//        QString text = "Введите сумму пополнения";
+//        inpMoney = inpDialog.getDouble(this, "Положить деньги", text,
+//                                       0.0,
+//                                       0.0,
+//                                       1000,
+//                                       2,
+//                                       &ok);
+//    }
+//    while (!ok);
+    QString text = "Введите сумму пополнения";
+    inpMoney = inpDialog.getDouble(this, "Положить деньги", text,
+                                   0.0,
+                                   0.0,
+                                   1000,
+                                   2,
+                                   &ok);
+    if(ok)
+        return inpMoney;
+    else return 0.0;
 }
 
 void ClientAccountsView::showAccountInfo(QString accountInfo)

@@ -42,6 +42,8 @@ void ClientAccountsPresenter::showAccountInfo()
 void ClientAccountsPresenter::putMoney()
 {
     qDebug() << "Put money.\n";
+    double sum = clientAccountsView->getPutMoneyFromClient();
+    client->putMoneyOnAccount(clientAccountsView->getIdOfSelectedAccount(), sum);
 }
 
 void ClientAccountsPresenter::withdrawMoney()

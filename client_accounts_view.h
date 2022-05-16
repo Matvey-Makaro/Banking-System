@@ -20,9 +20,11 @@ public:
     const QPushButton* getPutMoneyBtn() const { return putMoneyBtn; }
     const QPushButton* getShowAccInfoBtn() const { return showAccInfoBtn; }
     int getIdOfSelectedAccount() const { return accountsTableView->currentIndex().data().toInt(); }
+    double getPutMoneyFromClient();
 
 public slots:
     void showAccountInfo(QString accountInfo);
+
 
 
 

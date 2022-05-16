@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <string>
 #include <ctime>
+#include <sstream>
 
 Bank::Bank(QString bankName) :
     name(std::move(bankName)), hasher(std::make_shared<MD5PasswordHasher>())
@@ -132,11 +133,12 @@ void Bank::putMoneyOnClientAccount(int accountId, double sum)
     Account account = getClientAccount(accountId);
     double currentSum = account.getBalance();
     account.setBalance(currentSum + sum);
-    QString str = "UPDATE " + name + ACCOUNTS_POSTFIX +
-            "SET balance = " + std::to_string(account.getBalance()).c_str() +
-            "WHERE id = " + std::to_string(accountId).c_str() + ";";
-    if(!query.exec(str))
-        qDebug() << "Can't make command: " + str << '\n';
+    std::stringstream ss;
+    ss << "UPDATE " << name.toStdString() << ACCOUNTS_POSTFIX.toStdString() << " SET balance = " <<
+          account.getBalance() << " WHERE id = " << std::to_string(accountId).c_str() <<";";
+
+    if(!query.exec(ss.str().c_str()))
+        qDebug() << "Can't make command: " + QString(ss.str().c_str()) << '\n';
 }
 
 const QString& Bank::getName() const { return name; }
