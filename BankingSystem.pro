@@ -31,6 +31,7 @@ SOURCES += \
     client_presenter.cpp \
     client_view.cpp \
     database.cpp \
+    deposit.cpp \
     main.cpp \
     main_presenter.cpp \
     main_view.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     currency_converter.h \
     currency_type.h \
     database.h \
+    deposit.h \
     ibank.h \
     ibank_system.h \
     iclient.h \
