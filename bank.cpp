@@ -130,15 +130,18 @@ Account Bank::getClientAccount(int accountId) const
 
 void Bank::putMoneyOnClientAccount(int accountId, double sum)
 {
-    Account account = getClientAccount(accountId);
-    double currentSum = account.getBalance();
-    account.setBalance(currentSum + sum);
-    std::stringstream ss;
-    ss << "UPDATE " << name.toStdString() << ACCOUNTS_POSTFIX.toStdString() << " SET balance = " <<
-          account.getBalance() << " WHERE id = " << std::to_string(accountId).c_str() <<";";
+    changeSumOnClientAccount(accountId, sum);
+}
 
-    if(!query.exec(ss.str().c_str()))
-        qDebug() << "Can't make command: " + QString(ss.str().c_str()) << '\n';
+void Bank::withdrawMoneyFromClientAccout(int accountId, double sum)
+{
+    changeSumOnClientAccount(accountId, -sum);
+}
+
+void Bank::transferMoney(int srcAccountId, int dstAccountId, double sum)
+{
+    changeSumOnClientAccount(srcAccountId, - sum);
+    changeSumOnClientAccount(dstAccountId, sum);
 }
 
 const QString& Bank::getName() const { return name; }
@@ -180,4 +183,19 @@ UserType Bank::getUserTypeByPostfix(const QString& postfix) const
     if(postfix == ADMINS_POSTFIX)
         return UserType::ADMINISTRATOR;
     return UserType::UNKNOWN;
+}
+
+void Bank::changeSumOnClientAccount(int accountId, double sum)
+{
+    Account account = getClientAccount(accountId);
+    double newSum = account.getBalance() + sum;
+    if(newSum < 0)
+        throw std::logic_error("На счету не может быть отрицательная сумма");   // TODO: Add custom exception
+    account.setBalance(newSum);
+    std::stringstream ss;
+    ss << "UPDATE " << name.toStdString() << ACCOUNTS_POSTFIX.toStdString() << " SET balance = " <<
+          account.getBalance() << " WHERE id = " << std::to_string(accountId).c_str() <<";";
+
+    if(!query.exec(ss.str().c_str()))
+        qDebug() << "Can't make command: " + QString(ss.str().c_str()) << '\n';
 }

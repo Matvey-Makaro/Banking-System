@@ -27,6 +27,8 @@ public:
     virtual void closeAccount(int accountId) override;
     virtual Account getAccount(int accountId) override;
     virtual void putMoneyOnAccount(int accountId, double sum) override;
+    virtual void withdrawMoneyFromAccount(int accountId, double sum) override;
+    virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) override;
 
     virtual ~Client() = default;
 

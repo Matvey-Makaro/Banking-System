@@ -41,3 +41,13 @@ void Client::putMoneyOnAccount(int accountId, double sum)
 {
     currentBank->putMoneyOnClientAccount(accountId, sum);
 }
+
+void Client::withdrawMoneyFromAccount(int accountId, double sum)
+{
+    currentBank->withdrawMoneyFromClientAccout(accountId, sum);
+}
+
+void Client::transferMoney(int srcAccountId, int dstAccountId, double sum)
+{
+    currentBank->transferMoney(srcAccountId, dstAccountId, sum);
+}

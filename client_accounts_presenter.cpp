@@ -42,18 +42,29 @@ void ClientAccountsPresenter::showAccountInfo()
 void ClientAccountsPresenter::putMoney()
 {
     qDebug() << "Put money.\n";
-    double sum = clientAccountsView->getPutMoneyFromClient();
+    //double sum = clientAccountsView->getPutMoneyFromClient();
+    double sum = clientAccountsView->getDoubleFromClient("Положить деньги", "Введите сумму пополнения", 0, 0, 10000, 2);
     client->putMoneyOnAccount(clientAccountsView->getIdOfSelectedAccount(), sum);
 }
 
 void ClientAccountsPresenter::withdrawMoney()
 {
     qDebug() << "Withdraw money.\n";
+    //double sum = clientAccountsView->getWithdrawMoneyFromClient();
+    double sum = clientAccountsView->getDoubleFromClient("Снять деньги", "Введите сумму, которую хотите снять", 0, 0, 10000, 2);
+    client->withdrawMoneyFromAccount(clientAccountsView->getIdOfSelectedAccount(), sum);
 }
 
 void ClientAccountsPresenter::transferMoney()
 {
     qDebug() << "Transfer money.\n";
+    int dstAccountId = clientAccountsView->getIntFromClinet("Перевод средств", "Введите номер счёта", 0, 0, 2147483647, 1);
+    if(dstAccountId >= 0)
+    {
+        double sum = clientAccountsView->getDoubleFromClient("Перевод средств", "Введите сумму, которую хотите перевести", 0, 0, 10000, 2);
+        int srcAccountId = clientAccountsView->getIdOfSelectedAccount();
+        client->transferMoney(srcAccountId, dstAccountId, sum);
+    }
 }
 
 void ClientAccountsPresenter::changeCurrentAccountId(QListWidgetItem *listItem)

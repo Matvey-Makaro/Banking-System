@@ -25,7 +25,9 @@ public:
     virtual void updateClientAccountsModel() override;
     virtual void closeClientAccount(int accountId) const override;
     virtual Account getClientAccount(int accountId) const override;
-    virtual void putMoneyOnClientAccount(int accountId, double sum);
+    virtual void putMoneyOnClientAccount(int accountId, double sum) override;
+    virtual void withdrawMoneyFromClientAccout(int accountId, double sum) override;
+    virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) override;
     virtual const QString& getName() const override;
     virtual ~Bank() = default;
 
@@ -33,6 +35,7 @@ private:
     bool isUserExist(const User& user);
     int getEnterpriseId(const QString& enterpriseName);
     UserType getUserTypeByPostfix(const QString& postfix) const;
+    void changeSumOnClientAccount(int accountId, double sum);
 
 private:
     QString name;

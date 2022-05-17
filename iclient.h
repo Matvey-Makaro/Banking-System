@@ -22,7 +22,8 @@ public:
     virtual void closeAccount(int accountId) = 0;
     virtual Account getAccount(int accountId) = 0;
     virtual void putMoneyOnAccount(int accountId, double sum) = 0;
-
+    virtual void withdrawMoneyFromAccount(int accountId, double sum) = 0;
+    virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) = 0;
 
     virtual ~IClient() = default;
 };

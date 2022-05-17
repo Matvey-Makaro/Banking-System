@@ -21,6 +21,10 @@ public:
     const QPushButton* getShowAccInfoBtn() const { return showAccInfoBtn; }
     int getIdOfSelectedAccount() const { return accountsTableView->currentIndex().data().toInt(); }
     double getPutMoneyFromClient();
+    double getWithdrawMoneyFromClient();
+    int getAccountIdFromClient();
+    double getDoubleFromClient(const QString& title, const QString& label, double startValue, double minValue, double maxValue, int decimals);
+    int getIntFromClinet(const QString& title, const QString& label, int startValue, int minValue, int maxValue, int step);
 
 public slots:
     void showAccountInfo(QString accountInfo);

@@ -17,17 +17,6 @@ double ClientAccountsView::getPutMoneyFromClient()
     QInputDialog inpDialog;
     bool ok;
     double inpMoney;
-//    do
-//    {
-//        QString text = "Введите сумму пополнения";
-//        inpMoney = inpDialog.getDouble(this, "Положить деньги", text,
-//                                       0.0,
-//                                       0.0,
-//                                       1000,
-//                                       2,
-//                                       &ok);
-//    }
-//    while (!ok);
     QString text = "Введите сумму пополнения";
     inpMoney = inpDialog.getDouble(this, "Положить деньги", text,
                                    0.0,
@@ -38,6 +27,70 @@ double ClientAccountsView::getPutMoneyFromClient()
     if(ok)
         return inpMoney;
     else return 0.0;
+}
+
+double ClientAccountsView::getWithdrawMoneyFromClient()
+{
+    QInputDialog inpDialog;
+    bool ok;
+    double inpMoney;
+    QString text = "Введите сумму, которую хотите снять";
+    inpMoney = inpDialog.getDouble(this, "Снять деньги", text,
+                                   0.0,
+                                   0.0,
+                                   1000,
+                                   2,
+                                   &ok);
+    if(ok)
+        return inpMoney;
+    else return 0.0;
+}
+
+int ClientAccountsView::getAccountIdFromClient()
+{
+    QInputDialog inpDialog;
+    bool ok;
+    QString text = "Введите номер счёта";
+    int accountId = inpDialog.getInt(this, "Перевести деньги", text,
+                                     0,
+                                     0,
+                                     2147483647,
+                                     1,
+                                     &ok);
+    if(ok)
+        return accountId;
+    else
+        return -1;
+}
+
+double ClientAccountsView::getDoubleFromClient(const QString &title, const QString &label, double startValue, double minValue, double maxValue, int decimals)
+{
+    QInputDialog inpDialog;
+        bool ok;
+        double value = inpDialog.getDouble(this, title, label,
+                                       startValue,
+                                       minValue,
+                                       maxValue,
+                                       decimals,
+                                       &ok);
+        if(ok)
+            return value;
+        else return 0.0;
+}
+
+int ClientAccountsView::getIntFromClinet(const QString &title, const QString &label, int startValue, int minValue, int maxValue, int step)
+{
+    QInputDialog inpDialog;
+        bool ok;
+        double value = inpDialog.getInt(this, title, label,
+                                       startValue,
+                                       minValue,
+                                       maxValue,
+                                       step,
+                                       &ok);
+        if(ok)
+            return value;
+        else return -1;
 }
 
 void ClientAccountsView::showAccountInfo(QString accountInfo)
