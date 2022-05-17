@@ -10,27 +10,48 @@ ClientAccountsPresenter::ClientAccountsPresenter(std::shared_ptr<IClient> client
     connect(clientAccountsView->getPutMoneyBtn(), SIGNAL(clicked()), this, SLOT(putMoney()));
     connect(clientAccountsView->getShowAccInfoBtn(), SIGNAL(clicked()), this, SLOT(showAccountInfo()));
     connect(this, SIGNAL(showAccountInfo(QString)), clientAccountsView.get(), SLOT(showAccountInfo(QString)));
+    connect(this, SIGNAL(errorHappened(QString)), clientAccountsView.get(), SLOT(showError(QString)));
     clientAccountsView->show();
 }
 
 QSqlQueryModel &ClientAccountsPresenter::getAccountsQueryModel() const
 {
-    return client->getAccountQueryModel();
+    try
+    {
+        return client->getAccountQueryModel();
+    }
+    catch(const std::exception& ex)
+    {
+        emit errorHappened(QString(ex.what()));
+    }
 }
 
 void ClientAccountsPresenter::openAccount()
 {
     qDebug() << "Open account.\n";
-    client->openAccount();
-    client->updateAccountQueryModel();
+    try
+    {
+        client->openAccount();
+        client->updateAccountQueryModel();
+    }
+    catch(const std::exception& ex)
+    {
+        emit errorHappened(ex.what());
+    }
 }
 
 void ClientAccountsPresenter::closeAccount()
 {
     qDebug() << "Close account.\n";
-    client->closeAccount(clientAccountsView->getIdOfSelectedAccount());
-    client->updateAccountQueryModel();
-
+    try
+    {
+        client->closeAccount(clientAccountsView->getIdOfSelectedAccount());
+        client->updateAccountQueryModel();
+    }
+    catch(const std::exception& ex)
+    {
+        emit errorHappened(ex.what());
+    }
 }
 
 void ClientAccountsPresenter::showAccountInfo()
@@ -42,32 +63,49 @@ void ClientAccountsPresenter::showAccountInfo()
 void ClientAccountsPresenter::putMoney()
 {
     qDebug() << "Put money.\n";
-    //double sum = clientAccountsView->getPutMoneyFromClient();
-    double sum = clientAccountsView->getDoubleFromClient("Положить деньги", "Введите сумму пополнения", 0, 0, 10000, 2);
-    client->putMoneyOnAccount(clientAccountsView->getIdOfSelectedAccount(), sum);
+    try
+    {
+        //double sum = clientAccountsView->getPutMoneyFromClient();
+        double sum = clientAccountsView->getDoubleFromClient("Положить деньги", "Введите сумму пополнения", 0, 0, 10000, 2);
+        client->putMoneyOnAccount(clientAccountsView->getIdOfSelectedAccount(), sum);
+    }
+    catch(const std::exception& ex)
+    {
+        emit errorHappened(ex.what());
+    }
 }
 
 void ClientAccountsPresenter::withdrawMoney()
 {
     qDebug() << "Withdraw money.\n";
-    //double sum = clientAccountsView->getWithdrawMoneyFromClient();
-    double sum = clientAccountsView->getDoubleFromClient("Снять деньги", "Введите сумму, которую хотите снять", 0, 0, 10000, 2);
-    client->withdrawMoneyFromAccount(clientAccountsView->getIdOfSelectedAccount(), sum);
+    try
+    {
+        //double sum = clientAccountsView->getWithdrawMoneyFromClient();
+        double sum = clientAccountsView->getDoubleFromClient("Снять деньги", "Введите сумму, которую хотите снять", 0, 0, 10000, 2);
+        client->withdrawMoneyFromAccount(clientAccountsView->getIdOfSelectedAccount(), sum);
+    }
+    catch(const std::exception& ex)
+    {
+        emit errorHappened(ex.what());
+    }
 }
 
 void ClientAccountsPresenter::transferMoney()
 {
     qDebug() << "Transfer money.\n";
-    int dstAccountId = clientAccountsView->getIntFromClinet("Перевод средств", "Введите номер счёта", 0, 0, 2147483647, 1);
-    if(dstAccountId >= 0)
+    try
     {
-        double sum = clientAccountsView->getDoubleFromClient("Перевод средств", "Введите сумму, которую хотите перевести", 0, 0, 10000, 2);
-        int srcAccountId = clientAccountsView->getIdOfSelectedAccount();
-        client->transferMoney(srcAccountId, dstAccountId, sum);
+        int dstAccountId = clientAccountsView->getIntFromClinet("Перевод средств", "Введите номер счёта", 0, 0, 2147483647, 1);
+        if(dstAccountId >= 0)
+        {
+            double sum = clientAccountsView->getDoubleFromClient("Перевод средств", "Введите сумму, которую хотите перевести", 0, 0, 10000, 2);
+            int srcAccountId = clientAccountsView->getIdOfSelectedAccount();
+            client->transferMoney(srcAccountId, dstAccountId, sum);
+        }
+    }
+    catch(const std::exception& ex)
+    {
+        emit errorHappened(ex.what());
     }
 }
 
-void ClientAccountsPresenter::changeCurrentAccountId(QListWidgetItem *listItem)
-{
-    qDebug() << "Change current account id(Еще не знаю зачем это).\n";
-}

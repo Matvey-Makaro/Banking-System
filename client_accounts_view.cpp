@@ -101,6 +101,14 @@ void ClientAccountsView::showAccountInfo(QString accountInfo)
     msgBox.exec();
 }
 
+void ClientAccountsView::showError(QString error)
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Ошибка");
+    msgBox.setText(error);
+    msgBox.exec();
+}
+
 
 void ClientAccountsView::initUi()
 {

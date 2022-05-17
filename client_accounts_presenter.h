@@ -17,7 +17,8 @@ public:
     QSqlQueryModel& getAccountsQueryModel() const;
 
 signals:
-    void showAccountInfo(QString accountInfo);
+    void showAccountInfo(QString accountInfo) const;
+    void errorHappened(QString error) const;
 
 private slots:
     void openAccount();
@@ -26,9 +27,6 @@ private slots:
     void putMoney();
     void withdrawMoney();
     void transferMoney();
-
-    void changeCurrentAccountId(QListWidgetItem *listItem);
-
 
 private:
     std::shared_ptr<IClient> client;
