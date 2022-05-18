@@ -29,6 +29,8 @@ public:
     virtual void putMoneyOnAccount(int accountId, double sum) override;
     virtual void withdrawMoneyFromAccount(int accountId, double sum) override;
     virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) override;
+    virtual QSqlQueryModel& getDepositQueryModel() const override;
+    virtual void updateDepositQueryModel() const override;
 
     virtual ~Client() = default;
 

@@ -28,6 +28,8 @@ public:
     virtual void putMoneyOnClientAccount(int accountId, double sum) override;
     virtual void withdrawMoneyFromClientAccout(int accountId, double sum) override;
     virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) override;
+    virtual QSqlQueryModel& getClientDepositsModel(int clientId) override;
+    virtual void updateClientDepositsModel() override;
     virtual const QString& getName() const override;
     virtual ~Bank() = default;
 
@@ -42,5 +44,6 @@ private:
     mutable QSqlQuery query;
     std::shared_ptr<IPasswordHasher> hasher;
     std::shared_ptr<QSqlQueryModel> clientAccountsModel;
+    std::shared_ptr<QSqlQueryModel> clientDepositsModel;
 };
 

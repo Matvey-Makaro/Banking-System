@@ -20,7 +20,7 @@ void ClientPresenter::goToClientAccounts()
 void ClientPresenter::goToClientDeposits()
 {
     qDebug() << "Show client deposits window.\n";
-    clientDepositsPresenter = std::make_shared<ClientDepositsPresenter>();
+    clientDepositsPresenter = std::make_shared<ClientDepositsPresenter>(client);
 }
 
 void ClientPresenter::goToClientCredits()

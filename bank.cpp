@@ -144,6 +144,24 @@ void Bank::transferMoney(int srcAccountId, int dstAccountId, double sum)
     changeSumOnClientAccount(dstAccountId, sum);
 }
 
+QSqlQueryModel &Bank::getClientDepositsModel(int clientId)
+{
+    if(clientDepositsModel.get() == nullptr)
+        clientDepositsModel = std::make_shared<QSqlQueryModel>();
+    QString str = "SELECT id FROM " + name + DEPOSITS_POSTFIX +
+            " WHERE clientId = " + std::to_string(clientId).c_str() + ";";
+    clientDepositsModel->setQuery(str);
+    if(clientDepositsModel->lastError().isValid())
+        qDebug() << clientDepositsModel->lastError() << "\n";
+    clientDepositsModel->setHeaderData(0, Qt::Horizontal, "Номер вклада");
+    return *clientAccountsModel.get();
+}
+
+void Bank::updateClientDepositsModel()
+{
+    clientDepositsModel->setQuery(clientDepositsModel->query().lastQuery());
+}
+
 const QString& Bank::getName() const { return name; }
 
 bool Bank::isUserExist(const User& user)

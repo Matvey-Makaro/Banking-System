@@ -19,3 +19,4 @@ static const QString& ENTERPRISE_SPECIALIST_POSTFIX = "EnterpriseSpecialists";
 static const QString& ADMINS_POSTFIX = "Admins";
 static const QString& enterprisesTableName = "Enterprises";
 static const QString& ACCOUNTS_POSTFIX = "Accounts";
+static const QString& DEPOSITS_POSTFIX = "Deposits";

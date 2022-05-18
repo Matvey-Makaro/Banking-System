@@ -51,3 +51,13 @@ void Client::transferMoney(int srcAccountId, int dstAccountId, double sum)
 {
     currentBank->transferMoney(srcAccountId, dstAccountId, sum);
 }
+
+QSqlQueryModel &Client::getDepositQueryModel() const
+{
+    currentBank->getClientDepositsModel(id);
+}
+
+void Client::updateDepositQueryModel() const
+{
+    currentBank->updateClientDepositsModel();
+}
