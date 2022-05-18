@@ -52,6 +52,11 @@ void Client::transferMoney(int srcAccountId, int dstAccountId, double sum)
     currentBank->transferMoney(srcAccountId, dstAccountId, sum);
 }
 
+void Client::openDeposit(int term, double sum)
+{
+    currentBank->createDepositForClient(id, term, sum);
+}
+
 QSqlQueryModel &Client::getDepositQueryModel() const
 {
     currentBank->getClientDepositsModel(id);
@@ -60,4 +65,11 @@ QSqlQueryModel &Client::getDepositQueryModel() const
 void Client::updateDepositQueryModel() const
 {
     currentBank->updateClientDepositsModel();
+}
+
+Deposit Client::getDeposit(int depositId)
+{
+    Deposit deposit = currentBank->getClientDeposit(depositId);
+    deposit.setClientName(surname + " " + name + " " + patronymic);
+    return deposit;
 }

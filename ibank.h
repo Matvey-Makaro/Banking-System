@@ -2,6 +2,7 @@
 
 #include "user.h"
 #include "account.h"
+#include "deposit.h"
 
 #include <QString>
 #include <QSqlQueryModel>
@@ -21,8 +22,10 @@ public:
     virtual void putMoneyOnClientAccount(int accountId, double sum) = 0;
     virtual void withdrawMoneyFromClientAccout(int accoutId, double sum) = 0;
     virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) = 0;
+    virtual void createDepositForClient(int clientId, int term, double sum) = 0;
     virtual QSqlQueryModel& getClientDepositsModel(int clientId) = 0;
     virtual void updateClientDepositsModel() = 0;
+    virtual Deposit getClientDeposit(int depositId) const = 0;
     virtual const QString& getName() const = 0;
     virtual ~IBank() = default;
 };

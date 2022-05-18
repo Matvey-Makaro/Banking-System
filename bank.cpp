@@ -76,7 +76,7 @@ void Bank::createAccoutForClient(int clientId)
     double creationData = std::time(nullptr);
     //TODO: Изменить, чтобы у иностранных клиентов счет в долларах открывался.
     int curType = CurrencyType::BYN;
-    int status = AccountStatusType::OPEN;
+    int status = static_cast<int>(AccountStatusType::OPEN);
     QString tmp = str.arg(clientId).arg(balance).arg(percent).arg(creationData).arg(curType).arg(status);
     if(!query.exec(tmp))
         qDebug() << "Can't make command: " + tmp << '\n';
@@ -154,7 +154,23 @@ QSqlQueryModel &Bank::getClientDepositsModel(int clientId)
     if(clientDepositsModel->lastError().isValid())
         qDebug() << clientDepositsModel->lastError() << "\n";
     clientDepositsModel->setHeaderData(0, Qt::Horizontal, "Номер вклада");
-    return *clientAccountsModel.get();
+    return *clientDepositsModel.get();
+}
+
+void Bank::createDepositForClient(int clientId, int term, double sum)
+{
+    QString str = "INSERT INTO " + name + DEPOSITS_POSTFIX +
+            " (clientId, balance, percent, term, creationDate, lastAccrualOfInterestTime, currencyType, status) "
+            "VALUES (%1, %2, %3, %4, %5, %6, %7, %8);";
+    double percent = getPercentOnDeposits(term);
+    double creationData = std::time(nullptr);
+    double lastAccrualOfInterestTime = std::time(nullptr);
+    //TODO: Изменить, чтобы у иностранных клиентов счет в долларах открывался.
+    int curType = CurrencyType::BYN;
+    int status = static_cast<int>(DepositStatus::OPEN);
+    QString tmp = str.arg(clientId).arg(sum).arg(percent).arg(term).arg(creationData).arg(lastAccrualOfInterestTime).arg(curType).arg(status);
+    if(!query.exec(tmp))
+        qDebug() << "Can't make command: " + tmp << " With error: " << query.lastError().text() << '\n';
 }
 
 void Bank::updateClientDepositsModel()
@@ -162,7 +178,42 @@ void Bank::updateClientDepositsModel()
     clientDepositsModel->setQuery(clientDepositsModel->query().lastQuery());
 }
 
+Deposit Bank::getClientDeposit(int depositId) const
+{
+    QString str = "SELECT * FROM " + name + DEPOSITS_POSTFIX +
+            " WHERE id = " + std::to_string(depositId).c_str() + ";";
+    if(!query.exec(str))
+        qDebug() << "Can't make command: " + str << '\n';
+    if(query.next())
+    {
+        int id = query.value("id").toInt();
+        int clientId = query.value("clientId").toInt();
+        double balance = query.value("balance").toDouble();
+        double percent = query.value("percent").toDouble();
+        int term = query.value("term").toInt();
+        long long creationDate = query.value("creationDate").toLongLong();
+        long long lastAccrualOfInterestTime = query.value("lastAccrualOfInterestTime").toLongLong();
+        CurrencyType currencyType = static_cast<CurrencyType>(query.value("currencyType").toInt());
+        DepositStatus statusType = static_cast<DepositStatus>(query.value("status").toInt());
+        return Deposit(id, clientId, balance, percent, creationDate, lastAccrualOfInterestTime, term, currencyType, statusType);
+    }
+    throw std::logic_error("No such account id in database.");
+}
+
 const QString& Bank::getName() const { return name; }
+
+double Bank::getPercentOnDeposits(int term)
+{
+    if(term < 0)
+        throw std::logic_error("Количество месяцев не может быть отрицательным.");
+    if(term < 6)
+        return 8.0;
+    if(term < 12)
+        return 12.0;
+    if(term < 18)
+        return 16.0;
+    return 20.0;
+}
 
 bool Bank::isUserExist(const User& user)
 {

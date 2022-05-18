@@ -1,6 +1,7 @@
 #pragma once
 
 #include "account.h"
+#include "deposit.h"
 
 #include <QString>
 #include <QSqlQueryModel>
@@ -24,8 +25,10 @@ public:
     virtual void putMoneyOnAccount(int accountId, double sum) = 0;
     virtual void withdrawMoneyFromAccount(int accountId, double sum) = 0;
     virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) = 0;
+    virtual void openDeposit(int term, double sum) = 0;
     virtual QSqlQueryModel& getDepositQueryModel() const = 0;
     virtual void updateDepositQueryModel() const = 0;
+    virtual Deposit getDeposit(int depositId) = 0;
 
     virtual ~IClient() = default;
 };

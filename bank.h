@@ -6,6 +6,7 @@
 #include "ipassword_hasher.h"
 #include "iclient.h"
 #include "account.h"
+#include "deposit.h"
 
 #include <QString>
 #include <QStringList>
@@ -29,9 +30,14 @@ public:
     virtual void withdrawMoneyFromClientAccout(int accountId, double sum) override;
     virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) override;
     virtual QSqlQueryModel& getClientDepositsModel(int clientId) override;
+    virtual void createDepositForClient(int clientId, int term, double sum) override;
     virtual void updateClientDepositsModel() override;
+    virtual Deposit getClientDeposit(int depositId) const override;
     virtual const QString& getName() const override;
     virtual ~Bank() = default;
+
+protected:
+    double getPercentOnDeposits(int term);
 
 private:
     bool isUserExist(const User& user);

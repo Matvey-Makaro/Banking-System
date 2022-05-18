@@ -1,10 +1,10 @@
 #include "deposit.h"
 
 
-Deposit::Deposit(int id, int clientId, double balance, double percent, time_t creationDate,
+Deposit::Deposit(int id, int clientId, double balance, double percent, time_t creationDate, time_t lastAccrualOfInterestTime,
                  unsigned term,  CurrencyType currencyType, DepositStatus status) :
     id(id), clientId(clientId), balance(balance), percent(percent), creationDate(creationDate),
-    term(term), currencyType(currencyType), status(status), lastAccrualOfInterestTime(creationDate)
+    lastAccrualOfInterestTime(lastAccrualOfInterestTime), term(term), currencyType(currencyType), status(status)
 {
 
 }

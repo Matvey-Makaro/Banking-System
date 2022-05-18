@@ -30,9 +30,6 @@ public slots:
     void showAccountInfo(QString accountInfo);
     void showError(QString error);
 
-
-
-
 private:
     void initUi();
 

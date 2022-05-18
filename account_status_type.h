@@ -1,6 +1,6 @@
 #pragma once
 
-enum AccountStatusType
+enum class AccountStatusType
 {
     OPEN,
     FROZEN,

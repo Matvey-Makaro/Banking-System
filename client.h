@@ -3,6 +3,7 @@
 #include "iclient.h"
 #include "ibank.h"
 #include "account.h"
+#include "deposit.h"
 
 #include <QString>
 #include <memory>
@@ -29,8 +30,10 @@ public:
     virtual void putMoneyOnAccount(int accountId, double sum) override;
     virtual void withdrawMoneyFromAccount(int accountId, double sum) override;
     virtual void transferMoney(int srcAccountId, int dstAccountId, double sum) override;
+    virtual void openDeposit(int term, double sum) override;
     virtual QSqlQueryModel& getDepositQueryModel() const override;
     virtual void updateDepositQueryModel() const override;
+    virtual Deposit getDeposit(int depositId) override;
 
     virtual ~Client() = default;
 

@@ -14,7 +14,7 @@ public:
     QSqlQueryModel& getDepositsQueryModel() const;
 
 signals:
-    void showAccountInfo(QString accountInfo) const;
+    void showDepositInfo(QString depositInfo) const;
     void errorHappened(QString error) const;
 
 private slots:

@@ -4,7 +4,7 @@
 
 #include <QString>
 
-enum DepositStatus
+enum class DepositStatus
 {
     OPEN,
     CLOSE
@@ -13,7 +13,7 @@ enum DepositStatus
 class Deposit
 {
 public:
-    Deposit(int id, int clientId, double balance, double percent, time_t creationDate,
+    Deposit(int id, int clientId, double balance, double percent, time_t creationDate, time_t lastAccrualOfInterestTime,
             unsigned term, CurrencyType currencyType, DepositStatus statusType);
 
     int getId() const { return id;}
@@ -51,10 +51,10 @@ protected:
     double balance;
     double percent;
     time_t creationDate;
+    time_t lastAccrualOfInterestTime;
     unsigned term;
     CurrencyType currencyType;
     DepositStatus status;
     QString clientName;
-    time_t lastAccrualOfInterestTime;
 };
 
