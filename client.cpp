@@ -1,75 +1,19 @@
+#include <cstdlib>
+#include <iostream>
+
 #include "client.h"
 
-#include <utility>
-
-Client::Client(int id, QString name, QString surname, QString patronymic, QString phoneNumber, QString email,
-               QString passport, bool fromRB, std::shared_ptr<IBank> bank):
-    id(id), name(std::move(name)), surname(std::move(surname)), patronymic(std::move(patronymic)), phoneNumber(std::move(phoneNumber)),
-    email(std::move(email)), passport(std::move(passport)), fromRB(fromRB), currentBank(bank)
+Client::Client(const User::Data &clientData, std::string passportData, bool fromRB)
+    : User(clientData)
 {
-
+    this->passportData = passportData;
+    this->fromRB = fromRB;
 }
 
-QSqlQueryModel &Client::getAccountQueryModel() const
+std::string Client::getInfo() const
 {
-    return currentBank->getClientAccountsModel(id);
-}
-
-void Client::updateAccountQueryModel() const
-{
-    currentBank->updateClientAccountsModel();
-}
-
-void Client::openAccount()
-{
-    currentBank->createAccoutForClient(id);
-}
-
-void Client::closeAccount(int accountId)
-{
-    currentBank->closeClientAccount(accountId);
-}
-
-Account Client::getAccount(int accountId)
-{
-    Account account = currentBank->getClientAccount(accountId);
-    account.setClientName(surname + " " + name + " " + patronymic);
-    return account;
-}
-
-void Client::putMoneyOnAccount(int accountId, double sum)
-{
-    currentBank->putMoneyOnClientAccount(accountId, sum);
-}
-
-void Client::withdrawMoneyFromAccount(int accountId, double sum)
-{
-    currentBank->withdrawMoneyFromClientAccout(accountId, sum);
-}
-
-void Client::transferMoney(int srcAccountId, int dstAccountId, double sum)
-{
-    currentBank->transferMoney(srcAccountId, dstAccountId, sum);
-}
-
-void Client::openDeposit(int term, double sum)
-{
-    currentBank->createDepositForClient(id, term, sum);
-}
-
-QSqlQueryModel &Client::getDepositQueryModel() const
-{
-    currentBank->getClientDepositsModel(id);
-}
-
-void Client::updateDepositQueryModel() const
-{
-    currentBank->updateClientDepositsModel();
-}
-
-Deposit Client::getDeposit(int depositId)
-{
-    Deposit deposit = currentBank->getClientDeposit(depositId);
-    deposit.setClientName(surname + " " + name + " " + patronymic);
-    return deposit;
+    std::string info = User::getInfo();
+    info += "Серия и номер паспорта: " + getPassportData() + "\n";
+    info += (isFromRB() ? "Гражданин РБ" : "Иностранный клиент");
+    return info;
 }

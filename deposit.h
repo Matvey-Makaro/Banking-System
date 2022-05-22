@@ -1,60 +1,29 @@
-#pragma once
+#ifndef DEPOSIT_H
+#define DEPOSIT_H
 
-#include "currency_type.h"
+#include "somethingholdingmoney.h"
 
-#include <QString>
+const int DELETED = 4;
 
-enum class DepositStatus
-{
-    OPEN,
-    CLOSE
-};
-
-class Deposit
+class Deposit : public SomethingHoldingMoney
 {
 public:
-    Deposit(int id, int clientId, double balance, double percent, time_t creationDate, time_t lastAccrualOfInterestTime,
-            unsigned term, CurrencyType currencyType, DepositStatus statusType);
-
-    int getId() const { return id;}
-    int getClientId() const {return clientId; }
-
-    double getBalance() const { return balance; }
-    void setBalance(double value) { balance = value; }
-
-    double getPercent() const { return percent; }
-    void setPercent(double value) { percent = value; }
-
-
-    double getCreationDate() const { return creationDate; }
-
-    CurrencyType getCurrencyType() const { return currencyType; }
-    void setCurrencyType(const CurrencyType value) { currencyType = value; }
-
-    DepositStatus getStatusType() const { return status; }
-    void setStatusType(const DepositStatus value) { status = value; }
-
-    QString getInfo() const;
-    QString getClientName() const { return clientName; }
-    void setClientName(const QString &value) { clientName = value; }
+    Deposit(int64_t id, std::string clientLogin, double initialBalance,
+            double percents, time_t creationTime, unsigned term,
+            time_t lastAccrualOfInterestTime, int status, CurrencyType currencyType);
 
     unsigned getTerm() const { return term; }
     time_t getLastAccrualOfInterestTime() const { return lastAccrualOfInterestTime; }
 
-//    void accumulate();
-//    void checkTerm();
-//    void withdrawMoney(double value);
+    void accumulate();
+    void checkTerm();
+    void withdrawMoney(double value);
 
-protected:
-    int id;
-    int clientId;
-    double balance;
-    double percent;
-    time_t creationDate;
+    std::string getInfo() const override;
+
+private:
     time_t lastAccrualOfInterestTime;
     unsigned term;
-    CurrencyType currencyType;
-    DepositStatus status;
-    QString clientName;
 };
 
+#endif // DEPOSIT_H

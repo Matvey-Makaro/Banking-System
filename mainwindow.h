@@ -1,19 +1,32 @@
-#pragma once
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+#include <list>
 
-class MainWindow : public QMainWindow
+class AuthorizationWindow;
+class QListWidget;
+class IBankSystemModel;
+class Bank;
+
+class MainWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(IBankSystemModel* bankSystem, const std::list<Bank *> &banks, QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void showAuthWindow();
+
 private:
-    Ui::MainWindow *ui;
+    QListWidget* bankListWidget;
+
+    QString selectedBank = "";
+
+    IBankSystemModel* bankSystemModel = nullptr;
 };
+
+#endif // MAINWINDOW_H

@@ -1,104 +1,67 @@
+#include <cmath>
+#include <iostream>
+
 #include "account.h"
-#include "currency_type.h"
-#include "account_status_type.h"
+#include "constants.h"
 
-#include <string>
-
-Account::Account(int id, int clientId, double balance, double percent, time_t creationData, CurrencyType currencyType, AccountStatusType statusType):
-    id(id), clientId(clientId), balance(balance), creationDate(creationData), currencyType(currencyType), statusType(statusType)
+Account::Account(int64_t id, std::string clientLogin, double initialBalance,
+                 double percents, time_t creationTime, int st, CurrencyType currencyType)
+    : SomethingHoldingMoney(id, clientLogin, initialBalance, percents, creationTime, st, currencyType)
 {
-
 }
 
-int Account::getId() const
+void Account::accumulate()
 {
-    return id;
+    // Вычислить новое значение баланса на основании того, сколько времени прошло с последнего начисления
+    if (status != ACTIVE) { return; }
+
+    time_t now = time(nullptr);
+    time_t delta = now - creationTime;
+    int monthsPassed = delta / SEC_IN_MONTH;
+    double oneIterCoef = 1.0 + percents / 100.0;
+    double newBalance = balance;
+
+    if (monthsPassed < 1)
+    {
+        return;
+    }
+
+    for (int i = 0; i < monthsPassed; i++)
+    {
+        newBalance *= oneIterCoef;
+    }
+
+    balance = newBalance;
+
+    //creationTime = time(nullptr);
+    creationTime += monthsPassed * SEC_IN_MONTH;
 }
 
-int Account::getClientId() const
-{
-    return clientId;
-}
-
-double Account::getBalance() const
-{
-    return balance;
-}
-
-void Account::setBalance(double value)
-{
-    balance = value;
-}
-
-double Account::getPercent() const
-{
-    return percent;
-}
-
-void Account::setPercent(double value)
-{
-    percent = value;
-}
-
-double Account::getCreationDate() const
-{
-    return creationDate;
-}
-
-CurrencyType Account::getCurrencyType() const
-{
-    return currencyType;
-}
-
-void Account::setCurrencyType(const CurrencyType &value)
-{
-    currencyType = value;
-}
-
-AccountStatusType Account::getStatusType() const
-{
-    return statusType;
-}
-
-void Account::setStatusType(const AccountStatusType &value)
-{
-    statusType = value;
-}
-
-QString Account::getInfo() const
+std::string Account::getInfo() const
 {
     std::string info;
     info += "ID: " + std::to_string(id) + "\n";
-    info += "Принадлежит: " + clientName.toStdString()+ "\n";
+    info += "Принадлежит: " + clientLogin + "\n";
     info += "Баланс: " + std::to_string(balance);
-    info += (currencyType == CurrencyType::BYN ? " BYN" : " $");
+    info += (currencyType == BYN ? " BYN" : " $");
     info += "\n";
-    info += "Процентная ставка: " + std::to_string(percent) + "\n";
-    info += "Последнее накопление по процентам: " + std::string(ctime(&creationDate));
+    info += "Процентная ставка: " + std::to_string(percents) + "\n";
+    info += "Последнее накопление по процентам: " + std::string(ctime(&creationTime));
 
     info += "Статус: ";
 
-    switch (statusType) {
-    case AccountStatusType::OPEN:
+    switch (status) {
+    case ACTIVE:
         info += "открыт\n";
         break;
-    case AccountStatusType::FROZEN:
+    case CLOSED:
+        info += "закрыт\n";
+        break;
+    case FROZEN:
         info += "заморожен\n";
         break;
-    case AccountStatusType::BLOCKED:
-        info  += "заблокирован\n";
     default:
-        throw std::logic_error("Unknow status for account.");
+        info  += "заблокирован\n";
     }
-    return QString(info.c_str());
-}
-
-QString Account::getClientName() const
-{
-    return clientName;
-}
-
-void Account::setClientName(const QString &value)
-{
-    clientName = value;
+    return info;
 }

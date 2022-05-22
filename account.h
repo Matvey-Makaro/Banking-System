@@ -1,46 +1,19 @@
-#pragma once
+#ifndef ACCOUNT_H
+#define ACCOUNT_H
 
-#include "currency_type.h"
-#include "account_status_type.h"
+#include "somethingholdingmoney.h"
 
-#include <QString>
-
-class Account
+class Account : public SomethingHoldingMoney
 {
 public:
-    Account(int id, int clientId, double balance, double percent, time_t creationDate, CurrencyType currencyType, AccountStatusType statusType);
+    Account(int64_t id, std::string clientLogin, double initialBalance,
+            double percents, time_t creationTime, int st, CurrencyType currencyType);
 
-    int getId() const;
+    void accumulate();
+    void putMoney(double value) { balance += value; }
+    void withdrawMoney(double value) { balance -= value; }
 
-    int getClientId() const;
-
-    double getBalance() const;
-    void setBalance(double value);
-
-    double getPercent() const;
-    void setPercent(double value);
-
-
-    double getCreationDate() const;
-
-    CurrencyType getCurrencyType() const;
-    void setCurrencyType(const CurrencyType &value);
-
-    AccountStatusType getStatusType() const;
-    void setStatusType(const AccountStatusType &value);
-
-    QString getInfo() const;
-    QString getClientName() const;
-    void setClientName(const QString &value);
-
-private:
-    int id;
-    int clientId;
-    double balance;
-    double percent;
-    time_t creationDate;
-    CurrencyType currencyType;
-    AccountStatusType statusType;
-    QString clientName;
+    std::string getInfo() const override;
 };
 
+#endif // ACCOUNT_H

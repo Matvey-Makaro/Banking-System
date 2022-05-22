@@ -1,44 +1,33 @@
-#include "mainwindow.h"
-#include "database.h"
-#include "main_presenter.h"
-
-#include "md5_password_hasher.h" //TODO: Удалить потом
+#include <iostream>
 
 #include <QApplication>
 
-//DEBUG
-#include <QtWidgets>
-#include <QSqlQueryModel>
-#include <QSqlError>
+#include "mainwindow.h"
+#include "ibanksystemmodel.h"
+#include "banksystemmodel.h"
+
+std::list<Bank *> prepareBanks(IBankSystemModel *bankSystemModel)
+{
+    std::list<Bank *> banks = bankSystemModel->loadBanksList();
+
+    for (Bank *b : banks)
+    {
+        bankSystemModel->setCurrentBank(b);
+        bankSystemModel->addSampleManager();
+        bankSystemModel->addSampleOperator();
+        bankSystemModel->addSampleAdministrator();
+    }
+
+    return banks;
+}
 
 int main(int argc, char *argv[])
 {
+    IBankSystemModel* bankSystemModel = new BankSystemModel();
+    std::list<Bank *> banks = prepareBanks(bankSystemModel);
+
     QApplication a(argc, argv);
-    Database::getInstance();
-
-    MD5PasswordHasher hasher;
-    qDebug() << "Hash: " << hasher.hash("123") << '\n';
-
-//    QTableView view;
-//    QSqlQueryModel model;
-//    QString str = "SELECT * FROM BelarusBankClients;";
-//    model.setQuery(str);
-//    if(model.lastError().isValid())
-//        qDebug() << model.lastError() << "\n";
-//    model.setHeaderData(0, Qt::Horizontal, "Идентификационный номер");
-//    view.setModel(&model);
-//    view.show();
-//    qDebug() << view.currentIndex().row() << "\n";
-
-
-    MainPresenter mainPresenter;
-
-
-
-
-
-
-//    MainWindow w;
-//    w.show();
+    MainWindow w(bankSystemModel, banks);
+    w.show();
     return a.exec();
 }
