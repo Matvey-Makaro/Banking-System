@@ -1,56 +1,40 @@
-#pragma once
+#ifndef USER_H
+#define USER_H
 
-#include "user_type.h"
+#include <string>
 
-#include <cstdint>
-#include <QString>
-#include <memory>
+#include "iinforming.h"
 
-class IBank;
-
-
-class User
+class User : IInforming
 {
 public:
-    User(QString login, QString password, QString name, QString surname, QString patronymic,
-         QString phoneNumber, QString email, QString passport, bool isFromRB, int id = 0, UserType type = UserType::UNKNOWN);
-    UserType getType() const;
-    void setType(UserType userType);
-    const QString& getLogin() const;
-    const QString& getPassword() const;
-    const QString& getName() const;
-    const QString& getSurname() const;
-    const QString& getPatronymic() const;
-    const QString& getPhoneNumber() const;
-    const QString& getEmail() const;
-    const QString& getPassport() const;
-    bool getIsFromRB() const;
-    int getId() const;
-    // TODO: удалить или изменить, можно взять значение, до его установления, и возможно она вообще не нужна
-    const QString& getEnterprise() const;
-    int getEnterpriseId() const;
-    void setEnterpriseId(int id);
-    const QString& getHashedPassword() const;
-    void setHashedPassword(QString password);
-    std::shared_ptr<IBank> getCurrentBank() const;
-    void setCurrentBank(std::shared_ptr<IBank> bank);
+    struct Data
+    {
+        int64_t id;
+        std::string name;
+        std::string phone;
+        std::string email;
+        std::string login;
+        std::string passwordHash;
+    };
 
+    User(const Data &data);
+    virtual ~User() {}
+
+    void setPhone(std::string phone) { data.phone = phone; }
+    void setEmail(std::string email) { data.email = email; }
+
+    std::string getName() const { return data.name; }
+    std::string getPhone() const { return data.phone; }
+    std::string getEmail() const { return data.email; }
+    int64_t getId() const { return data.id; }
+    std::string getLogin() const { return data.login; }
+    std::string getPasswordHash() const { return data.passwordHash; }
+
+    std::string getInfo() const override;
 
 protected:
-    UserType type;
-    QString login;
-    QString password;
-    QString name;
-    QString surname;
-    QString patronymic;
-    QString phoneNumber;
-    QString email;
-    QString passport;
-    bool isFromRB;
-    int id;
-    int enterpriseId;
-    QString hashedPassword;
-    std::shared_ptr<IBank> currentBank;
-    QString enterprise;
+    Data data;
 };
 
+#endif // USER_H

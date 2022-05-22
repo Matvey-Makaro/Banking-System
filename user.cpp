@@ -1,28 +1,17 @@
 #include "user.h"
 
-#include <utility>
+User::User(const User::Data &userData)
+    : data(userData)
+{
+}
 
-User::User(QString login, QString password, QString name, QString surname, QString patronymic,
-           QString phoneNumber, QString email, QString passport, bool isFromRB, int id, UserType type) :
-    type(type), login(std::move(login)), password(std::move(password)),
-    name(std::move(name)), surname(std::move(surname)), patronymic(std::move(patronymic)),
-    phoneNumber(std::move(phoneNumber)), email(std::move(email)), passport(std::move(passport)), isFromRB(isFromRB), id(id)
-{ }
-
-UserType User::getType() const { return type; }
-void User::setType(UserType userType) { type = userType; }
-const QString& User::getLogin() const { return login; }
-const QString& User::getPassword() const { return password; }
-const QString& User::getName() const {return name; }
-const QString& User::getSurname() const { return surname; }
-const QString& User::getPatronymic() const { return patronymic; }
-const QString& User::getPhoneNumber() const {return phoneNumber; }
-const QString& User::getEmail() const { return email; }
-const QString& User::getPassport() const { return passport; }
-bool User::getIsFromRB() const { return isFromRB; }
-int User::getId() const { return id; }
-const QString& User::getEnterprise() const { return enterprise; }
-int User::getEnterpriseId() const { return enterpriseId; }
-void User::setEnterpriseId(int id){ enterpriseId = id; }
-const QString& User::getHashedPassword() const {return hashedPassword; }
-void User::setHashedPassword(QString password) { hashedPassword = std::move(password); }
+std::string User::getInfo() const
+{
+    std::string info;
+    info += "Имя: " + getName() + "\n";
+    info += "Логин: " + getLogin()  + "\n";
+    info += "Идентификационный номер: " + std::to_string(getId()) + "\n";
+    info += "Email: " + getEmail() + "\n";
+    info += "Телефон: " + getPhone() + "\n";
+    return info;
+}
