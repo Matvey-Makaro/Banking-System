@@ -115,7 +115,8 @@ void AuthorizationWindow::enter()
     }
     else if (userType == "OPERATORS")
     {
-        OperatorPersonalAccountWindow *win = new OperatorPersonalAccountWindow();
+        OperatorPersonalAccountWindow *win = new OperatorPersonalAccountWindow(bankSystemModel);
+        win->setCurrentOperatorData((Operator*)loggedInUser);
         win->setWindowModality(Qt::ApplicationModal);
         win->exec();
         delete win;
