@@ -877,3 +877,16 @@ void Database::updateCredit(Credit *data)
 
     std::cout << sqlQuery.lastError().text().toStdString() << "\n";
 }
+
+void Database::clearAllTables()
+{
+    std::vector<std::string> tablesToCheck = {"ACCOUNTS", "CLIENTS", "DEPOSITS", "MANAGERS", "TRANSFERS",
+                                              "ADMINISTRATORS", "CREDITS", "ENTERPRISES", "OPERATORS"};
+    for (const std::string &tableName : tablesToCheck)
+    {
+        std::string query = std::string("DELETE FROM ") + tableName + ";";
+        QSqlQuery getQuery;
+        getQuery.prepare(query.c_str()); //addWidget
+        std::cout << getQuery.lastError().text().toStdString() << "\n";
+    }
+}

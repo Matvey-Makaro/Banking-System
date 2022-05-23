@@ -38,6 +38,14 @@ void BankSystemModel::test()
     std::cout << "End of test\n";
 }
 
+void BankSystemModel::cancleEverything()
+{
+    database->clearAllTables();
+    addSampleManager();
+    addSampleOperator();
+    addSampleAdministrator();
+}
+
 std::list<Bank *> BankSystemModel::loadBanksList()
 {
     std::list<Bank *> banks;

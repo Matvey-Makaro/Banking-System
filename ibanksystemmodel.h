@@ -134,6 +134,8 @@ public:
 
     // Запустить определённые тесты
     virtual void test() = 0;
+
+    virtual void cancleEverything() = 0;
 };
 
 #endif // IBANKSYSTEMMODEL_H

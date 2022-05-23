@@ -103,6 +103,8 @@ public:
 
     void test() override;
 
+    virtual void cancleEverything() override;
+
 private:
     Database *database = nullptr;
 

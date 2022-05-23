@@ -20,8 +20,11 @@ AdminPersonalAccountWindow::AdminPersonalAccountWindow(IBankSystemModel *bankSys
 
     QPushButton *accountsDepositsWork = new QPushButton("Счета и вклады", this);
     connect(accountsDepositsWork, &QPushButton::clicked, this, &AdminPersonalAccountWindow::showAccountsDepositsWindow);
+    QPushButton* cancleEverything = new QPushButton("Отменить все действия", this);
+    connect(cancleEverything, &QPushButton::clicked, this, &AdminPersonalAccountWindow::cancleEverything);
 
     gridLayout->addWidget(accountsDepositsWork, 0, 0);
+    gridLayout->addWidget(cancleEverything, 1, 0);
 }
 
 void AdminPersonalAccountWindow::showAccountsDepositsWindow()
@@ -29,4 +32,13 @@ void AdminPersonalAccountWindow::showAccountsDepositsWindow()
     AdminAccountsDepositsWindow window(bankSystemModel);
     window.setWindowModality(Qt::ApplicationModal);
     window.exec();
+}
+
+void AdminPersonalAccountWindow::cancleEverything()
+{
+    bankSystemModel->cancleEverything();
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("");
+    msgBox.setText("Отмена всех действий прошла успешно.");
+    msgBox.exec();
 }

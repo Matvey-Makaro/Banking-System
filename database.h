@@ -85,6 +85,8 @@ public:
     void updateDeposit(Deposit *data);
     void updateCredit(Credit *data);
 
+    void clearAllTables();
+
 private:
     void createClientsTable();
     void createOperatorsTable();

@@ -13,6 +13,7 @@ public:
 
 private slots:
     void showAccountsDepositsWindow();
+    void cancleEverything();
 
 private:
     IBankSystemModel *bankSystemModel;
